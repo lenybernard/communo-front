@@ -4,11 +4,45 @@ import ReactDOM from "react-dom"
 import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Index as MaterialIndex } from "./routes/materials";
+import {
+    ApolloClient,
+    InMemoryCache,
+    ApolloProvider,
+} from "@apollo/client";
+import MaterialShow from "./routes/materials/show";
+import {I18nextProvider} from "react-i18next";
+import i18n from "./translations";
+
+const client = new ApolloClient({
+    uri: 'http://127.0.0.1:8000/api/graphql',
+    cache: new InMemoryCache()
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <App />
+    <ApolloProvider client={client}>
+        <I18nextProvider i18n={i18n}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App />} />
+                    <Route path="materials" element={<MaterialIndex />}>
+                    </Route>
+                    <Route path="materials/:id" element={<MaterialShow />} />
+                    <Route
+                        path="*"
+                        element={
+                            <main style={{ padding: "1rem" }}>
+                                <p>There's nothing here!</p>
+                            </main>
+                        }
+                    />
+                </Routes>
+            </BrowserRouter>
+        </I18nextProvider>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 )
