@@ -26,6 +26,8 @@ import { useParams } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
 import {useTranslation} from "react-i18next";
 import ReactMarkdown from "react-markdown";
+import ExchangeMailCloud from "../../components/atoms/Illustrations/ExchangeMailCloud";
+import {Material} from "../../types";
 
 const MATERIAL_GET_QUERY = gql`
   query GetMaterial($id: ID!) {
@@ -38,7 +40,13 @@ const MATERIAL_GET_QUERY = gql`
       owner {
         _id
         firstname
+        lastname
         email
+        phoneNumber
+      }
+      category {
+        id
+        name
       }
       images {
         edges {
@@ -52,30 +60,6 @@ const MATERIAL_GET_QUERY = gql`
     }
   }
 `;
-
-type MaterialImageConnection = {
-    edges: MaterialImageNode[]
-}
-type MaterialImageNode = {
-    node: MaterialImage
-}
-type MaterialImage = {
-    name: string
-    imageName: string
-}
-type Owner = {
-    firstname: string
-    email: string
-}
-type Material = {
-    name: string
-    brand: string
-    model: string
-    owner: Owner
-    reference: string
-    id: string
-    images: MaterialImageConnection
-}
 
 export const MaterialShow = () => {
     const { t } = useTranslation()
@@ -220,8 +204,11 @@ export const MaterialShow = () => {
                                     <ModalCloseButton />
                                     <ModalBody>
                                         <ReactMarkdown>
-                                            {t('material.show.modal.body', {firstname: material.owner.firstname, email: material.owner.email})}
+                                            {t('material.show.modal.body', {firstname: material.owner.firstname, email: material.owner.email, phoneNumber: material.owner.phoneNumber})}
                                         </ReactMarkdown>
+                                        <ExchangeMailCloud
+                                            height={{ sm: '16rem', lg: '24rem' }}
+                                            mt={{ base: 12, sm: 16 }}/>
                                         <Spacer h={35}/>
                                     </ModalBody>
                                 </ModalContent>

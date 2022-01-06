@@ -66,14 +66,15 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SideBarProps) => {
                 </NavItem>
             ))}
 
-            {i18n.language === 'fr' &&
+            {(i18n.language === 'fr' &&
                 <NavItem key={'switch-lang-en'} icon={FaLanguage} to={'/?lng=en'}>
                     {t('switch.language')}
                 </NavItem>
-                ||
+                ) || (
                 <NavItem key={'switch-lang-fr'} icon={FaLanguage} to={'/?lng=fr'}>
                     {t('switch.language')}
                 </NavItem>
+                )
             }
         </Box>
     );

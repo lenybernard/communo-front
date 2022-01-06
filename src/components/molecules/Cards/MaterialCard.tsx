@@ -7,7 +7,7 @@ import {
     Stack,
     Image, Button,
 } from '@chakra-ui/react';
-import {FaChevronCircleRight, FaChevronRight} from "react-icons/all";
+import { FaChevronRight } from "react-icons/all";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import * as React from "react";
@@ -57,24 +57,24 @@ export const MaterialCard = ({picture, name, model, brand, id}: MaterialCardProp
                     {name} {model}
                 </Heading>
                 <Stack direction={'row'} align={'center'}>
-                    <Button
-                        rounded={'none'}
-                        w={'full'}
-                        mt={8}
-                        size={'lg'}
-                        py={'7'}
-                        color={useColorModeValue('white', 'gray.900')}
-                        bg={useColorModeValue('gray.900', 'white')}
-                        textTransform={'uppercase'}
-                        _hover={{
-                            transform: 'translateY(2px)',
-                            boxShadow: 'lg',
-                        }}
-                        rightIcon={<FaChevronRight/>}>
-                        <Link to={`/materials/${id}`}>
-                            {t('material.card.button.label')}
-                        </Link>
-                    </Button>
+                    <Link to={`/materials/${id}`}>
+                        <Button
+                            rounded={'none'}
+                            w={'full'}
+                            mt={8}
+                            size={'lg'}
+                            py={'7'}
+                            color={useColorModeValue('white', 'gray.900')}
+                            bg={useColorModeValue('gray.900', 'white')}
+                            textTransform={'uppercase'}
+                            _hover={{
+                                transform: 'translateY(2px)',
+                                boxShadow: 'lg',
+                            }}
+                            rightIcon={<FaChevronRight/>}>
+                                {t('material.card.button.label')}
+                        </Button>
+                    </Link>
                 </Stack>
             </Stack>
         </Box>

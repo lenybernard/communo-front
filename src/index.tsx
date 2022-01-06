@@ -1,7 +1,6 @@
 import { ColorModeScript } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
-import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -14,6 +13,10 @@ import {
 import MaterialShow from "./routes/materials/show";
 import {I18nextProvider} from "react-i18next";
 import i18n from "./translations";
+import Home from "./routes/home";
+import Login from "./components/molecules/Login/login";
+import 'react-toastify/dist/ReactToastify.css';
+import "./style/index.scss"
 
 const client = new ApolloClient({
     uri: 'http://127.0.0.1:8000/api/graphql',
@@ -27,7 +30,9 @@ ReactDOM.render(
         <I18nextProvider i18n={i18n}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<App />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/login" element={<Home modalComponent={<Login/>} />} />
+                    <Route path="login" element={<Login />} />
                     <Route path="materials" element={<MaterialIndex />}>
                     </Route>
                     <Route path="materials/:id" element={<MaterialShow />} />

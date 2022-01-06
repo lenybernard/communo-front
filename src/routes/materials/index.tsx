@@ -13,6 +13,11 @@ import {
 import MaterialCard from "../../components/molecules/Cards/MaterialCard";
 import Layout from "../../components/layout/Layout";
 import {useTranslation} from "react-i18next";
+import {Material} from "../../types";
+
+type MaterialNodeProps = {
+    node: Material
+}
 
 const MATERIALS_QUERY = gql`
   query GetMaterials {
@@ -38,28 +43,6 @@ const MATERIALS_QUERY = gql`
     }
   }
 `;
-
-type MaterialImageConnection = {
-    edges: MaterialImageNode[]
-}
-type MaterialImageNode = {
-    node: MaterialImage
-}
-type MaterialImage = {
-    name: string
-    imageName: string
-}
-type Material = {
-    _id: string
-    name: string
-    brand: string
-    model: string
-    reference: string
-    images: MaterialImageConnection
-}
-type MaterialNodeProps = {
-    node: Material
-}
 
 function MaterialList() {
     const { loading, error, data } = useQuery(MATERIALS_QUERY);
