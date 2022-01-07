@@ -8,8 +8,6 @@ import {
     Icon,
     useColorModeValue,
     createIcon,
-    theme,
-    ChakraProvider,
     Flex,
     Modal,
     ModalOverlay,
@@ -22,120 +20,122 @@ import {useTranslation} from "react-i18next";
 import AccountingIllustration from '../components/atoms/Illustrations/AccountingIllustration';
 import Heart from "../components/atoms/Illustrations/Heart";
 import * as React from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null}) => {
     const { t } = useTranslation()
-    const { isOpen, onClose } = useDisclosure({defaultIsOpen: modalComponent !== null ?? true, onClose: () => {
-            console.log('Closed')
-        }})
+    let navigate = useNavigate();
+    let location = useLocation();
+    const updateUrl = () => {
+        navigate("/");
+    }
+    const { isOpen, onClose } = useDisclosure({defaultIsOpen: modalComponent !== undefined, onClose: updateUrl})
 
     return (
-        <ChakraProvider theme={theme}>
-            <Layout>
-                <Container maxW={'5xl'}>
-                    <Stack
-                        textAlign={'center'}
-                        align={'center'}
-                        spacing={{ base: 8, md: 10 }}
-                        py={{ base: 20, md: 28 }}>
-                        <Heading
-                            fontWeight={600}
-                            fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
-                            lineHeight={'110%'}>
-                            {t('home.hero1.line1')}{' '}
-                            <Text as={'span'} color={'orange.400'}>
-                                {t('home.hero1.line2')}
-                            </Text>
-                        </Heading>
-                        <Text color={'gray.500'} maxW={'3xl'}>
-                            {t('home.hero1.description')}{' '}
+        <>
+            <Container maxW={'5xl'}>
+                <Stack
+                    textAlign={'center'}
+                    align={'center'}
+                    spacing={{ base: 8, md: 10 }}
+                    py={{ base: 20, md: 28 }}>
+                    <Heading
+                        fontWeight={600}
+                        fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
+                        lineHeight={'110%'}>
+                        {t('home.hero1.line1')}{' '}
+                        <Text as={'span'} color={'orange.400'}>
+                            {t('home.hero1.line2')}
                         </Text>
-                        <Stack spacing={6} direction={'row'}>
-                            <Button
-                                rounded={'full'}
-                                px={6}
-                                colorScheme={'orange'}
-                                bg={'orange.400'}
-                                _hover={{ bg: 'orange.500' }}>
-                                {t('home.hero1.getStarted')}
-                            </Button>
-                            <Button rounded={'full'} px={6}>
-                                {t('home.hero1.learnMore')}
-                            </Button>
-                        </Stack>
-                        <Flex w={'full'}>
-                            <AccountingIllustration
-                                height={{ sm: '24rem', lg: '28rem' }}
-                                mt={{ base: 12, sm: 16 }}
-                            />
-                        </Flex>
+                    </Heading>
+                    <Text color={'gray.500'} maxW={'3xl'}>
+                        {t('home.hero1.description')}{' '}
+                    </Text>
+                    <Stack spacing={6} direction={'row'}>
+                        <Button
+                            rounded={'full'}
+                            px={6}
+                            colorScheme={'orange'}
+                            bg={'orange.400'}
+                            _hover={{ bg: 'orange.500' }}>
+                            {t('home.hero1.getStarted')}
+                        </Button>
+                        <Button rounded={'full'} px={6}>
+                            {t('home.hero1.learnMore')}
+                        </Button>
                     </Stack>
-                </Container>
-                <Container maxW={'3xl'}>
-                    <Stack
-                        as={Box}
-                        textAlign={'center'}
-                        spacing={{ base: 8, md: 14 }}
-                        py={{ base: 20, md: 36 }}>
-                        <Heading
-                            fontWeight={600}
-                            fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-                            lineHeight={'110%'}>
-                            {t('home.hero.line1')}<br />
-                            <Text as={'span'} color={'green.400'}>
-                                {t('home.hero.line2')}
-                            </Text>
-                        </Heading>
-                        <Text color={'gray.500'}>
-                            {t('home.hero.description')}
-                        </Text>
-
-                        <Heart
+                    <Flex w={'full'}>
+                        <AccountingIllustration
                             height={{ sm: '24rem', lg: '28rem' }}
                             mt={{ base: 12, sm: 16 }}
                         />
-                        <Stack
-                            direction={'column'}
-                            spacing={3}
-                            align={'center'}
-                            alignSelf={'center'}
-                            position={'relative'}>
-                            <Button
-                                colorScheme={'green'}
-                                bg={'green.400'}
-                                rounded={'full'}
-                                px={6}
-                                _hover={{
-                                    bg: 'green.500',
-                                }}>
-                                {t('home.hero.getStarted')}
-                            </Button>
-                            <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
-                                {t('home.hero.who')}
-                            </Button>
-                            <Box>
-                                <Icon
-                                    as={Arrow}
-                                    color={useColorModeValue('gray.800', 'gray.300')}
-                                    w={71}
-                                    position={'absolute'}
-                                    right={-71}
-                                    top={'10px'}
-                                />
-                                <Text
-                                    fontSize={'lg'}
-                                    fontFamily={'Caveat'}
-                                    position={'absolute'}
-                                    right={'-125px'}
-                                    top={'-30px'}
-                                    transform={'rotate(10deg)'}>
-                                    {t('home.hero.buttonIncentive')}
-                                </Text>
-                            </Box>
-                        </Stack>
+                    </Flex>
+                </Stack>
+            </Container>
+            <Container maxW={'3xl'}>
+                <Stack
+                    as={Box}
+                    textAlign={'center'}
+                    spacing={{ base: 8, md: 14 }}
+                    py={{ base: 20, md: 36 }}>
+                    <Heading
+                        fontWeight={600}
+                        fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
+                        lineHeight={'110%'}>
+                        {t('home.hero.line1')}<br />
+                        <Text as={'span'} color={'green.400'}>
+                            {t('home.hero.line2')}
+                        </Text>
+                    </Heading>
+                    <Text color={'gray.500'}>
+                        {t('home.hero.description')}
+                    </Text>
+
+                    <Heart
+                        height={{ sm: '24rem', lg: '28rem' }}
+                        mt={{ base: 12, sm: 16 }}
+                    />
+                    <Stack
+                        direction={'column'}
+                        spacing={3}
+                        align={'center'}
+                        alignSelf={'center'}
+                        position={'relative'}>
+                        <Button
+                            colorScheme={'green'}
+                            bg={'green.400'}
+                            rounded={'full'}
+                            px={6}
+                            _hover={{
+                                bg: 'green.500',
+                            }}>
+                            {t('home.hero.getStarted')}
+                        </Button>
+                        <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
+                            {t('home.hero.how')}
+                        </Button>
+                        <Box>
+                            <Icon
+                                as={Arrow}
+                                color={useColorModeValue('gray.800', 'gray.300')}
+                                w={71}
+                                position={'absolute'}
+                                right={-71}
+                                top={'10px'}
+                            />
+                            <Text
+                                fontSize={'lg'}
+                                fontFamily={'Caveat'}
+                                position={'absolute'}
+                                right={'-125px'}
+                                top={'-30px'}
+                                transform={'rotate(10deg)'}>
+                                {t('home.hero.buttonIncentive')}
+                            </Text>
+                        </Box>
                     </Stack>
-                </Container>
-            </Layout>
+                </Stack>
+            </Container>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent>
@@ -145,7 +145,7 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                     </ModalBody>
                 </ModalContent>
             </Modal>
-        </ChakraProvider>
+        </>
     );
 }
 

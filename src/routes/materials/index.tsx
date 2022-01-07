@@ -1,17 +1,15 @@
 import * as React from "react"
 import {
-    ChakraProvider,
     Box,
     VStack,
     Grid,
-    theme, Heading, Container, Spinner, SlideFade, Flex, SimpleGrid, Icon,
+    Heading, Container, Spinner, SlideFade, Flex, SimpleGrid, Icon,
 } from "@chakra-ui/react"
 import {
     useQuery,
     gql
 } from "@apollo/client";
 import MaterialCard from "../../components/molecules/Cards/MaterialCard";
-import Layout from "../../components/layout/Layout";
 import {useTranslation} from "react-i18next";
 import {Material} from "../../types";
 
@@ -101,20 +99,16 @@ function MaterialList() {
 
 export const Index = () => {
     const { t } = useTranslation()
-    return <ChakraProvider theme={theme}>
-        <Layout>
-            <Box textAlign="center" fontSize="xl">
-                <Grid p={4}>
-                    <VStack spacing={10}>
-                        <Heading>
-                            { t('material.index.title') }
-                        </Heading>
-                        <MaterialList/>
-                    </VStack>
-                </Grid>
-            </Box>
-        </Layout>
-    </ChakraProvider>
+    return <Box textAlign="center" fontSize="xl">
+        <Grid p={4}>
+            <VStack spacing={10}>
+                <Heading>
+                    { t('material.index.title') }
+                </Heading>
+                <MaterialList/>
+            </VStack>
+        </Grid>
+    </Box>
 }
 
 export default Index

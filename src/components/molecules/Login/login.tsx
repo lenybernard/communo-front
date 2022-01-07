@@ -18,7 +18,7 @@ import {useTranslation} from "react-i18next";
 import { useForm } from 'react-hook-form'
 import {toast} from "react-toastify";
 import {useState} from "react";
-import {FaRegEye, FaRegEyeSlash} from "react-icons/all";
+import {FaRegEye, FaRegEyeSlash} from "react-icons/fa";
 
 export const Login = () => {
     const { t } = useTranslation()
@@ -30,7 +30,7 @@ export const Login = () => {
         formState: { errors, isSubmitting },
     } = useForm()
 
-    const onSubmit = (values: {email: string, password: string}) =>
+    const onSubmit = (values: {username: string, password: string}) =>
     {
         const requestOptions = {
             method: 'POST',
@@ -40,11 +40,13 @@ export const Login = () => {
         fetch('http://localhost:8000/api/login', requestOptions)
             .then(response => response.json())
             .then(response => {
-                toast(t('login.toast.success.' + Math.floor(Math.random() * 4), {'firstname': response.user.firstname}))
-                console.log({ status: 'loaded', payload: response.user.firstname })
+                if (response.error) {
+                    throw new Error(response.error);
+                }
+                toast(t('login.toast.success.' + Math.floor(Math.random() * 4), {'user': response.user}))
             })
             .catch(error => {
-                let errorMessage = t('login.toast.error.' + Math.floor(Math.random() * 5))
+                let errorMessage = t('login.toast.error.' + Math.floor(Math.random() * 5), {'error': error.toString().replace(/^Error: /, '')})
                 setError('password', {type: "manual"})
                 toast.error(errorMessage)
             });
@@ -76,7 +78,7 @@ export const Login = () => {
                                 <Input type="email"
                                        placeholder={t('login.form.email.placeholder')}
                                        isRequired={true}
-                                       {...register('email', {
+                                       {...register('username', {
                                            required: 'This is required',
                                            minLength: { value: 4, message: 'Minimum length should be 4' },
                                        })}

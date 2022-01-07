@@ -17,6 +17,7 @@ import Home from "./routes/home";
 import Login from "./components/molecules/Login/login";
 import 'react-toastify/dist/ReactToastify.css';
 import "./style/index.scss"
+import Layout from "./components/layout/Layout";
 
 const client = new ApolloClient({
     uri: 'http://127.0.0.1:8000/api/graphql',
@@ -30,20 +31,22 @@ ReactDOM.render(
         <I18nextProvider i18n={i18n}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Home modalComponent={<Login/>} />} />
-                    <Route path="login" element={<Login />} />
-                    <Route path="materials" element={<MaterialIndex />}>
+                    <Route element={<Layout />}>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<Home modalComponent={<Login/>} />} />
+                        <Route path="login" element={<Login />} />
+                        <Route path="materials" element={<MaterialIndex />}>
+                        </Route>
+                        <Route path="materials/:id" element={<MaterialShow />} />
+                        <Route
+                            path="*"
+                            element={
+                                <main style={{ padding: "1rem" }}>
+                                    <p>There's nothing here!</p>
+                                </main>
+                            }
+                        />
                     </Route>
-                    <Route path="materials/:id" element={<MaterialShow />} />
-                    <Route
-                        path="*"
-                        element={
-                            <main style={{ padding: "1rem" }}>
-                                <p>There's nothing here!</p>
-                            </main>
-                        }
-                    />
                 </Routes>
             </BrowserRouter>
         </I18nextProvider>

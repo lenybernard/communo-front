@@ -7,7 +7,7 @@ import {
     Stack,
     Image, Button,
 } from '@chakra-ui/react';
-import { FaChevronRight } from "react-icons/all";
+import { FaChevronRight } from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import * as React from "react";
