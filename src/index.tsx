@@ -8,49 +8,72 @@ import { Index as MaterialIndex } from "./routes/materials";
 import {
     ApolloClient,
     InMemoryCache,
-    ApolloProvider,
+    ApolloProvider, createHttpLink,
 } from "@apollo/client";
 import MaterialShow from "./routes/materials/show";
 import {I18nextProvider} from "react-i18next";
 import i18n from "./translations";
 import Home from "./routes/home";
-import Login from "./components/molecules/Login/login";
 import 'react-toastify/dist/ReactToastify.css';
 import "./style/index.scss"
 import Layout from "./components/layout/Layout";
+import Profile from "./routes/profile";
+import RequireAuth from "./auth/RequireAuth";
+import AuthProvider from "./auth/AuthProvider";
+import Login from "./routes/login";
+import Logout from "./auth/Logout";
+import {CookiesProvider, useCookies} from "react-cookie";
+import {setContext} from "@apollo/client/link/context";
+import {useEffect} from "react";
 
+const link = createHttpLink({
+    uri: 'http://127.0.0.1:8000/api/graphql'
+});
+
+const authLink = setContext((_, { headers }) => {
+    const token = localStorage.getItem('token')
+    return {
+        headers: {
+            ...headers,
+            authorization: token ? `Bearer ${token}` : "",
+        }
+    }
+});
 const client = new ApolloClient({
-    uri: 'http://127.0.0.1:8000/api/graphql',
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
+    link: authLink.concat(link),
 });
 
 ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
-    <ApolloProvider client={client}>
-        <I18nextProvider i18n={i18n}>
-            <BrowserRouter>
-                <Routes>
-                    <Route element={<Layout />}>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Home modalComponent={<Login/>} />} />
-                        <Route path="login" element={<Login />} />
-                        <Route path="materials" element={<MaterialIndex />}>
+    <CookiesProvider />
+    <AuthProvider>
+        <ApolloProvider client={client}>
+            <I18nextProvider i18n={i18n}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route element={<Layout />}>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/logout" element={<Logout />} />
+                            <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>}/>
+                            <Route path="materials" element={<MaterialIndex />}/>
+                            <Route path="materials/:id" element={<MaterialShow />} />
+                            <Route
+                                path="*"
+                                element={
+                                    <main style={{ padding: "1rem" }}>
+                                        <p>There's nothing here!</p>
+                                    </main>
+                                }
+                            />
                         </Route>
-                        <Route path="materials/:id" element={<MaterialShow />} />
-                        <Route
-                            path="*"
-                            element={
-                                <main style={{ padding: "1rem" }}>
-                                    <p>There's nothing here!</p>
-                                </main>
-                            }
-                        />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
-        </I18nextProvider>
-    </ApolloProvider>
+                    </Routes>
+                </BrowserRouter>
+            </I18nextProvider>
+        </ApolloProvider>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 )

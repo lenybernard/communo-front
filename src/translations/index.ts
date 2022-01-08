@@ -58,8 +58,28 @@ const resources = {
                 },
                 "forgotPassword": "Forgot password ?",
                 "toast": {
-                    "success" : "C'est bon de te revoir {{user.firstname}}"
+                    "success" : {
+                        0: "🦄 Welcome home comrade",
+                        1: "🤗 Finally, you are back {{user.firstname}} !",
+                        2: "👋 Hello {{user.firstname}}",
+                        3: "😀 It's good to see you again {{user.firstname}}",
+                    },
+                    "error" : {
+                        0: "👮‍♀️{{error}} No it doesn't work",
+                        1: "😓 {{error}} Ouch. A password issue ?",
+                        2: "🥴 {{error}} It does not go through...",
+                        3: "☝️{{error}} Please reset your password",
+                        4: "🤷 {{error}} What boring are these password stories...",
+                    }
+                },
+                "authentication.needed": {
+                    "title": "Authentication needed to access {{from}}",
+                    "subtitle": "Of course it's you but there is a procedure  🛂",
                 }
+            },
+            "logout": {
+                "title": "Logout",
+                "toast": "Good bye !"
             },
             "menu": {
                 "home": "Home",
@@ -161,8 +181,16 @@ const resources = {
                         2: "🥴 {{error}} Ça ne passe pas...",
                         3: "☝️{{error}} N'hésite pas à réinitialiser ton mot de passe",
                         4: "🤷 {{error}} C'est vrai que c'est ennuyeux ces histoires de mot de passe...",
-                    },
+                    }
+                },
+                "authentication.needed": {
+                    "title": "Identification requise 🛂",
+                    "subtitle": "Bien sûr c'est toi, on le sait, c'est une simple procédure",
                 }
+            },
+            "logout": {
+                "title": "Déconnexion",
+                "toast": "😿 À bientôt !"
             },
             "menu": {
                 "home": "Accueil",

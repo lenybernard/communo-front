@@ -17,10 +17,14 @@ import {
 import {useTranslation} from "react-i18next";
 import { useForm } from 'react-hook-form'
 import {toast} from "react-toastify";
-import {useState} from "react";
+import React, {useState} from "react";
 import {FaRegEye, FaRegEyeSlash} from "react-icons/fa";
+import {useLocation, useNavigate} from "react-router-dom";
+import {useAuth} from "../../../../auth/AuthStatus";
 
-export const Login = () => {
+
+
+export const LoginForm = ({title = null, subtitle = null}: {title?: string|null, subtitle?: string|null}) => {
     const { t } = useTranslation()
     const [showPassword, setShowPassword] = useState(false)
     const {
@@ -29,6 +33,10 @@ export const Login = () => {
         setError,
         formState: { errors, isSubmitting },
     } = useForm()
+
+    let navigate = useNavigate();
+    let location = useLocation();
+    let auth = useAuth();
 
     const onSubmit = (values: {username: string, password: string}) =>
     {
@@ -40,19 +48,27 @@ export const Login = () => {
         fetch('http://localhost:8000/api/login', requestOptions)
             .then(response => response.json())
             .then(response => {
+                if (response.message) {
+                    throw new Error(response.message);
+                }
                 if (response.error) {
                     throw new Error(response.error);
                 }
                 toast(t('login.toast.success.' + Math.floor(Math.random() * 4), {'user': response.user}))
+                auth.signin(response, () => {
+                    // @ts-ignore
+                    let from = location.state?.from?.pathname || "/";
+                    navigate(from, { replace: true });
+                });
             })
             .catch(error => {
                 let errorMessage = t('login.toast.error.' + Math.floor(Math.random() * 5), {'error': error.toString().replace(/^Error: /, '')})
                 setError('password', {type: "manual"})
                 toast.error(errorMessage)
             });
-
-            /** @todo need to handle login success */
     }
+
+
 
     return (
         <Flex
@@ -60,9 +76,9 @@ export const Login = () => {
             justify={'center'}>
             <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
                 <Stack align={'center'}>
-                    <Heading fontSize={'4xl'}>{t('login.title')}</Heading>
+                    <Heading fontSize={'4xl'}>{title || t('login.title')}</Heading>
                     <Text fontSize={'lg'} color={'gray.600'}>
-                        {t('login.subtitle')}️
+                        {subtitle || t('login.subtitle')}️
                     </Text>
                 </Stack>
                 <Box
@@ -127,4 +143,4 @@ export const Login = () => {
     );
 }
 
-export default Login
+export default LoginForm
