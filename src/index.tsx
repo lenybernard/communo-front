@@ -3,28 +3,27 @@ import * as React from "react"
 import ReactDOM from "react-dom"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Index as MaterialIndex } from "./routes/materials";
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { Index as MaterialIndex } from "./routes/materials"
 import {
     ApolloClient,
     InMemoryCache,
     ApolloProvider, createHttpLink,
-} from "@apollo/client";
-import MaterialShow from "./routes/materials/show";
-import {I18nextProvider} from "react-i18next";
-import i18n from "./translations";
-import Home from "./routes/home";
-import 'react-toastify/dist/ReactToastify.css';
+} from "@apollo/client"
+import MaterialShow from "./routes/materials/show"
+import {I18nextProvider} from "react-i18next"
+import i18n from "./translations"
+import Home from "./routes/home"
+import 'react-toastify/dist/ReactToastify.css'
 import "./style/index.scss"
-import Layout from "./components/layout/Layout";
-import Profile from "./routes/profile";
-import RequireAuth from "./auth/RequireAuth";
-import AuthProvider from "./auth/AuthProvider";
-import Login from "./routes/login";
-import Logout from "./auth/Logout";
-import {CookiesProvider, useCookies} from "react-cookie";
-import {setContext} from "@apollo/client/link/context";
-import {useEffect} from "react";
+import Layout from "./components/layout/Layout"
+import Profile from "./routes/profile"
+import RequireAuth from "./auth/RequireAuth"
+import AuthProvider from "./auth/AuthProvider"
+import Login from "./routes/login"
+import Logout from "./auth/Logout"
+import {CookiesProvider} from "react-cookie"
+import {setContext} from "@apollo/client/link/context"
 
 const link = createHttpLink({
     uri: 'http://127.0.0.1:8000/api/graphql'

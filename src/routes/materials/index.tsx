@@ -3,59 +3,62 @@ import {
     Box,
     VStack,
     Grid,
-    Heading, Container, Spinner, SlideFade, Flex, SimpleGrid, Icon,
+    Heading, Container, Spinner, SlideFade, Flex, SimpleGrid, Icon, Button, ButtonGroup,
 } from "@chakra-ui/react"
 import {
     useQuery,
-    gql
 } from "@apollo/client";
 import MaterialCard from "../../components/molecules/Cards/MaterialCard";
 import {useTranslation} from "react-i18next";
 import {Material} from "../../types";
+import {findMaterials} from "../../repositories/Material/MaterialRepository";
+import {MutableRefObject, useRef, useState} from "react";
+import useUrlQuery from "../../hooks/useUrlQuery";
+import {useNavigate} from "react-router-dom";
 
-type MaterialNodeProps = {
-    node: Material
-}
+const MaterialList = ({page, topRef}: {page: number, topRef: MutableRefObject<any>}) => {
+    const navigate = useNavigate()
 
-const MATERIALS_QUERY = gql`
-  query GetMaterials {
-    materials {
-      edges {
-        node {
-          _id
-          name
-          model
-          brand
-          reference
-          images {
-            edges {
-              node {
-                _id
-                imageName
-                imageSize
-              }
-            }
-          }
-        }
-      }
+    const scrollTo = (ref: MutableRefObject<any>) => {
+        ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
-  }
-`;
 
-function MaterialList() {
-    const { loading, error, data } = useQuery(MATERIALS_QUERY);
+    let query = useUrlQuery()
+    if (query.has('page')) {
+        let pageQuery = query.get('page')
+        if (pageQuery !== null)
+        {
+            page = parseInt(pageQuery)
+        }
+    }
+    const { loading, error, data } = useQuery(findMaterials, {
+        variables: {
+            page
+        }
+    })
     if (error) return <p>Error :(</p>;
     let materials = []
+    let paginationInfo = {lastPage: 0}
     if (!loading) {
-        materials = data.materials.edges
+        materials = data.materials.collection
+        paginationInfo = data.materials.paginationInfo
+    }
+
+    const jumpPage = (number: number) => {
+        navigate('?page=' + number)
+        scrollTo(topRef)
+    }
+
+    let pageRange = [];
+    for (let i = 1; i <= paginationInfo.lastPage; i++) {
+        pageRange.push(i);
     }
 
     return (loading && <Spinner size='xl' />) || (error && <div>Error :(</div>) || (
-        <Container maxW='8xl'>
+        <Container maxW='8xl' ref={topRef}>
             <SlideFade in={!loading} offsetY='300px'>
                 <Flex
                     textAlign={'center'}
-                    pt={10}
                     justifyContent={'center'}
                     direction={'column'}
                     width={'full'}>
@@ -65,12 +68,19 @@ function MaterialList() {
                         mt={16}
                         mx={'auto'}>
                         {
-                            materials.map(({ node }: MaterialNodeProps) => {
-                                const picture = node.images.edges.length > 0 ? 'http://127.0.0.1:8000/images/materials/' + node.images.edges[0].node?.imageName : 'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
-                                return <MaterialCard key={node._id} picture={picture} name={node.name} brand={node.brand} model={node.model} id={node._id}/>
+                            materials.map((material: Material) => {
+                                const picture = material.images.edges.length > 0 ? 'http://127.0.0.1:8000/images/materials/' + material.images.edges[0].node.imageName : 'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
+                                return <MaterialCard key={material._id} picture={picture} name={material.name} brand={material.brand} model={material.model} id={material._id}/>
                             })
                         }
                     </SimpleGrid>
+                    <Flex justifyContent={'center'}>
+                        <ButtonGroup variant="solid">
+                        {pageRange.map((i) => {
+                            return <Button onClick={() => jumpPage(i)} isActive={i === page}>{i}</Button>
+                        })}
+                        </ButtonGroup>
+                    </Flex>
                     <Box>
                         <Icon viewBox="0 0 40 35" mt={14} boxSize={10} color={'yellow.300'}>
                             <path
@@ -99,13 +109,16 @@ function MaterialList() {
 
 export const Index = () => {
     const { t } = useTranslation()
-    return <Box textAlign="center" fontSize="xl">
+    const [page] = useState(1)
+    const topRef = useRef(null)
+
+    return <Box textAlign="center" fontSize="xl" ref={topRef}>
         <Grid p={4}>
-            <VStack spacing={10}>
+            <VStack>
                 <Heading>
                     { t('material.index.title') }
                 </Heading>
-                <MaterialList/>
+                <MaterialList page={page} topRef={topRef}/>
             </VStack>
         </Grid>
     </Box>

@@ -15,17 +15,15 @@ import {
     ModalCloseButton,
     ModalBody, useDisclosure,
 } from '@chakra-ui/react';
-import Layout from '../components/layout/Layout';
 import {useTranslation} from "react-i18next";
 import AccountingIllustration from '../components/atoms/Illustrations/AccountingIllustration';
 import Heart from "../components/atoms/Illustrations/Heart";
 import * as React from "react";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null}) => {
     const { t } = useTranslation()
     let navigate = useNavigate();
-    let location = useLocation();
     const updateUrl = () => {
         navigate("/");
     }

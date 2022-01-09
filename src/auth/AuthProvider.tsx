@@ -20,14 +20,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     let [token, setToken] = React.useState<any>(null);
     const [cookies, setCookie, removeCookie] = useCookies();
 
+    const cookieUser = cookies.user
     useEffect(() => {
-        if (cookies.token !== undefined) {
-            setToken(localStorage.getItem('token'))
+        const token = localStorage.getItem('token')
+        if (token !== undefined) {
+            setToken(token)
         }
-        if (cookies.user !== undefined) {
-            setUser(cookies.user)
+        if (cookieUser !== undefined) {
+            setUser(cookieUser)
         }
-    }, [])
+    }, [cookieUser])
 
     let signin = (response: JWTAuthResponse, callback: VoidFunction) => {
         setUser(response.user)

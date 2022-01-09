@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react"
 import {
     useQuery,
-    gql
 } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -26,43 +25,12 @@ import ReactMarkdown from "react-markdown";
 import ExchangeMailCloud from "../../components/atoms/Illustrations/ExchangeMailCloud";
 import {Material} from "../../types";
 import remarkGfm from "remark-gfm";
-
-const MATERIAL_GET_QUERY = gql`
-  query GetMaterial($id: ID!) {
-    material(id: $id) {
-      id
-      name
-      model
-      brand
-      reference
-      owner {
-        _id
-        firstname
-        lastname
-        email
-        phoneNumber
-      }
-      category {
-        id
-        name
-      }
-      images {
-        edges {
-          node {
-            id
-            imageName
-            imageSize
-          }
-        }
-      }
-    }
-  }
-`;
+import {findMaterialById} from "../../repositories/Material/MaterialRepository";
 
 export const MaterialShow = () => {
     const { t } = useTranslation()
     let params = useParams();
-    const {loading, error, data} = useQuery(MATERIAL_GET_QUERY, {
+    const {loading, error, data} = useQuery(findMaterialById, {
         variables: {
             id: '/api/materials/' + params.id
         }
