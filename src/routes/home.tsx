@@ -20,6 +20,7 @@ import AccountingIllustration from '../components/atoms/Illustrations/Accounting
 import Heart from "../components/atoms/Illustrations/Heart";
 import * as React from "react";
 import {useNavigate} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null}) => {
     const { t } = useTranslation()
@@ -31,6 +32,9 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
 
     return (
         <>
+            <Helmet>
+                <title>Communo</title>
+            </Helmet>
             <Container maxW={'5xl'}>
                 <Stack
                     textAlign={'center'}
@@ -42,7 +46,7 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                         fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
                         lineHeight={'110%'}>
                         {t('home.hero1.line1')}{' '}
-                        <Text as={'span'} color={'orange.400'}>
+                        <Text as={'span'} color={useColorModeValue('red.400', 'yellow.200')}>
                             {t('home.hero1.line2')}
                         </Text>
                     </Heading>
@@ -53,8 +57,7 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                         <Button
                             rounded={'full'}
                             px={6}
-                            colorScheme={'orange'}
-                            bg={'orange.400'}
+                            colorScheme={useColorModeValue('red', 'yellow')}
                             _hover={{ bg: 'orange.500' }}>
                             {t('home.hero1.getStarted')}
                         </Button>

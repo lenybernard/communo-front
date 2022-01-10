@@ -15,6 +15,7 @@ import {findMaterials} from "../../repositories/Material/MaterialRepository";
 import {MutableRefObject, useRef, useState} from "react";
 import useUrlQuery from "../../hooks/useUrlQuery";
 import {useNavigate} from "react-router-dom";
+import {Helmet} from "react-helmet";
 
 const MaterialList = ({page, topRef}: {page: number, topRef: MutableRefObject<any>}) => {
     const navigate = useNavigate()
@@ -77,7 +78,7 @@ const MaterialList = ({page, topRef}: {page: number, topRef: MutableRefObject<an
                     <Flex justifyContent={'center'}>
                         <ButtonGroup variant="solid">
                         {pageRange.map((i) => {
-                            return <Button onClick={() => jumpPage(i)} isActive={i === page}>{i}</Button>
+                            return <Button key={`page-${i}`} onClick={() => jumpPage(i)} isActive={i === page}>{i}</Button>
                         })}
                         </ButtonGroup>
                     </Flex>
@@ -112,16 +113,21 @@ export const Index = () => {
     const [page] = useState(1)
     const topRef = useRef(null)
 
-    return <Box textAlign="center" fontSize="xl" ref={topRef}>
-        <Grid p={4}>
-            <VStack>
-                <Heading>
-                    { t('material.index.title') }
-                </Heading>
-                <MaterialList page={page} topRef={topRef}/>
-            </VStack>
-        </Grid>
-    </Box>
+    return <>
+        <Helmet>
+            <title>{ t('material.index.title') } { t('meta.title.suffix') }</title>
+        </Helmet>
+        <Box textAlign="center" fontSize="xl" ref={topRef}>
+            <Grid p={4}>
+                <VStack>
+                    <Heading>
+                        { t('material.index.title') }
+                    </Heading>
+                    <MaterialList page={page} topRef={topRef}/>
+                </VStack>
+            </Grid>
+        </Box>
+    </>
 }
 
 export default Index

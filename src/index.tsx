@@ -1,4 +1,4 @@
-import { ColorModeScript } from "@chakra-ui/react"
+import {ChakraProvider, ColorModeScript, theme} from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import reportWebVitals from "./reportWebVitals"
@@ -47,32 +47,34 @@ ReactDOM.render(
   <React.StrictMode>
     <ColorModeScript />
     <CookiesProvider />
-    <AuthProvider>
-        <ApolloProvider client={client}>
-            <I18nextProvider i18n={i18n}>
-                <BrowserRouter>
-                    <Routes>
-                        <Route element={<Layout />}>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/logout" element={<Logout />} />
-                            <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>}/>
-                            <Route path="materials" element={<MaterialIndex />}/>
-                            <Route path="materials/:id" element={<MaterialShow />} />
-                            <Route
-                                path="*"
-                                element={
-                                    <main style={{ padding: "1rem" }}>
-                                        <p>There's nothing here!</p>
-                                    </main>
-                                }
-                            />
-                        </Route>
-                    </Routes>
-                </BrowserRouter>
-            </I18nextProvider>
-        </ApolloProvider>
-    </AuthProvider>
+    <ChakraProvider theme={theme}>
+        <AuthProvider>
+            <ApolloProvider client={client}>
+                <I18nextProvider i18n={i18n}>
+                    <BrowserRouter>
+                        <Routes>
+                            <Route element={<Layout />}>
+                                <Route path="/" element={<Home />} />
+                                <Route path="/login" element={<Login />} />
+                                <Route path="/logout" element={<Logout />} />
+                                <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>}/>
+                                <Route path="materials" element={<MaterialIndex />}/>
+                                <Route path="materials/:id" element={<MaterialShow />} />
+                                <Route
+                                    path="*"
+                                    element={
+                                        <main style={{ padding: "1rem" }}>
+                                            <p>There's nothing here!</p>
+                                        </main>
+                                    }
+                                />
+                            </Route>
+                        </Routes>
+                    </BrowserRouter>
+                </I18nextProvider>
+            </ApolloProvider>
+        </AuthProvider>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 )

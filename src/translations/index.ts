@@ -73,8 +73,8 @@ const resources = {
                     }
                 },
                 "authentication.needed": {
-                    "title": "Authentication needed to access {{from}}",
-                    "subtitle": "Of course it's you but there is a procedure  🛂",
+                    "title": "Authentication needed 🛂",
+                    "subtitle": "Of course it's you but there is a procedure",
                 }
             },
             "logout": {
@@ -85,6 +85,11 @@ const resources = {
                 "home": "Home",
                 "material": "Equipment",
                 "service": "Service",
+            },
+            "meta": {
+                "title": {
+                    "suffix": "< Communo"
+                }
             },
             "switch.language": "Switch to french",
             "materials": {
@@ -196,6 +201,11 @@ const resources = {
                 "home": "Accueil",
                 "material": "Matériel",
                 "service": "Service",
+            },
+            "meta": {
+                "title": {
+                    "suffix": "< Communo"
+                }
             },
             "switch.language": "Passer en anglais",
             "material": {
