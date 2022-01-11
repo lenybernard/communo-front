@@ -92,14 +92,16 @@ const resources = {
                 }
             },
             "switch.language": "Switch to french",
-            "materials": {
+            "material": {
+                "card": {
+                    "button": {
+                        "label": "See"
+                    }
+                },
                 "index": {
                     "title": "Borrow equipment",
-                    "item": {
-                        "button": {
-                            "label": "See"
-                        }
-                    }
+                    "itemsFound": "{{count}} item found",
+                    "itemsFound_plural": "{{count}} items found"
                 },
                 "show": {
                     "details": "Details",
@@ -216,6 +218,8 @@ const resources = {
                 },
                 "index": {
                     "title": "Emprunter du matériel",
+                    "itemsFound": "{{count}} résultat",
+                    "itemsFound_plural": "{{count}} résultats"
                 },
                 "show": {
                     "details": "Détails",

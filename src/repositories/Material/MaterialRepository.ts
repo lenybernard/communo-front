@@ -1,14 +1,16 @@
 import {gql} from "@apollo/client";
 
 export const findMaterials = gql`
-query GetMaterials($page: Int) {
-    materials(page: $page) {
+query GetMaterials($page: Int, $searchTerms: String) {
+    materials(page: $page, name: $searchTerms, order: [{createdAt: "DESC"}, {name: "ASC"}]) {
         collection {
             _id
             name
             model
             brand
             reference
+            createdAt
+            updatedAt
             images {
                 edges {
                     node {

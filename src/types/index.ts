@@ -40,17 +40,10 @@ export declare interface MaterialCategoryPageInfo {
     hasPreviousPage: boolean|null
 }
 
-//Connection for Material." +
-export declare interface MaterialConnection {
-    edges: [MaterialEdge]
-    pageInfo: MaterialPageInfo|null
-    totalCount: number|null
-}
-
-//Edge of Material." +
-export declare interface MaterialEdge {
-    node: Material
-    cursor: string|null
+export declare interface PaginationInfo {
+    itemsPerPage: Number
+    lastPage: Number
+    totalCount: Number
 }
 
 export declare interface MaterialImage {

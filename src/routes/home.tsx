@@ -46,7 +46,10 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                         fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
                         lineHeight={'110%'}>
                         {t('home.hero1.line1')}{' '}
-                        <Text as={'span'} color={useColorModeValue('red.400', 'yellow.200')}>
+                        <Text
+                            as={'span'}
+                            color={useColorModeValue('red.400', 'yellow.200')}
+                        >
                             {t('home.hero1.line2')}
                         </Text>
                     </Heading>

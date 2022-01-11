@@ -3,7 +3,18 @@ import {
     Box,
     VStack,
     Grid,
-    Heading, Container, Spinner, SlideFade, Flex, SimpleGrid, Icon, Button, ButtonGroup,
+    Heading,
+    Container,
+    Spinner,
+    SlideFade,
+    Flex,
+    SimpleGrid,
+    Icon,
+    Button,
+    ButtonGroup,
+    Input,
+    InputGroup,
+    InputRightElement, Text,
 } from "@chakra-ui/react"
 import {
     useQuery,
@@ -16,9 +27,18 @@ import {MutableRefObject, useRef, useState} from "react";
 import useUrlQuery from "../../hooks/useUrlQuery";
 import {useNavigate} from "react-router-dom";
 import {Helmet} from "react-helmet";
+import {FaSearchengin} from "react-icons/fa";
+import {TiTimesOutline} from "react-icons/ti";
 
-const MaterialList = ({page, topRef}: {page: number, topRef: MutableRefObject<any>}) => {
+interface MaterialListProps {
+    page: number
+    topRef: MutableRefObject<any>
+    searchTerms: string
+}
+
+const MaterialList = ({page, topRef, searchTerms}: MaterialListProps) => {
     const navigate = useNavigate()
+    const {t} = useTranslation()
 
     const scrollTo = (ref: MutableRefObject<any>) => {
         ref.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -34,12 +54,13 @@ const MaterialList = ({page, topRef}: {page: number, topRef: MutableRefObject<an
     }
     const { loading, error, data } = useQuery(findMaterials, {
         variables: {
-            page
+            page,
+            searchTerms
         }
     })
     if (error) return <p>Error :(</p>;
     let materials = []
-    let paginationInfo = {lastPage: 0}
+    let paginationInfo = {lastPage: 0, totalCount: 0}
     if (!loading) {
         materials = data.materials.collection
         paginationInfo = data.materials.paginationInfo
@@ -57,6 +78,7 @@ const MaterialList = ({page, topRef}: {page: number, topRef: MutableRefObject<an
 
     return (loading && <Spinner size='xl' />) || (error && <div>Error :(</div>) || (
         <Container maxW='8xl' ref={topRef}>
+            <Text>{t('material.index.itemsFound' + (paginationInfo.totalCount > 1 ? '_plural' : ''), {'count': paginationInfo.totalCount})}</Text>
             <SlideFade in={!loading} offsetY='300px'>
                 <Flex
                     textAlign={'center'}
@@ -75,13 +97,16 @@ const MaterialList = ({page, topRef}: {page: number, topRef: MutableRefObject<an
                             })
                         }
                     </SimpleGrid>
-                    <Flex justifyContent={'center'}>
-                        <ButtonGroup variant="solid">
-                        {pageRange.map((i) => {
-                            return <Button key={`page-${i}`} onClick={() => jumpPage(i)} isActive={i === page}>{i}</Button>
-                        })}
-                        </ButtonGroup>
-                    </Flex>
+                    {pageRange.length > 1 &&
+                        <Flex justifyContent={'center'}>
+                            <ButtonGroup variant="solid">
+                                {pageRange.map((i) => {
+                                    return <Button key={`page-${i}`} onClick={() => jumpPage(i)}
+                                                   isActive={i === page}>{i}</Button>
+                                })}
+                            </ButtonGroup>
+                        </Flex>
+                    }
                     <Box>
                         <Icon viewBox="0 0 40 35" mt={14} boxSize={10} color={'yellow.300'}>
                             <path
@@ -112,6 +137,7 @@ export const Index = () => {
     const { t } = useTranslation()
     const [page] = useState(1)
     const topRef = useRef(null)
+    const [searchTerms, setSearchTerms] = useState('')
 
     return <>
         <Helmet>
@@ -123,7 +149,23 @@ export const Index = () => {
                     <Heading>
                         { t('material.index.title') }
                     </Heading>
-                    <MaterialList page={page} topRef={topRef}/>
+                        <InputGroup maxW={'400px'}>
+                            <Input
+                                placeholder='Search'
+                                size='xl'
+                                bg={'white'}
+                                rounded={'full'}
+                                px={5}
+                                py={2}
+                                mt={5}
+                                value={searchTerms}
+                                onChange={(event) => setSearchTerms(event.target.value)}
+                            />
+                            <InputRightElement children={(searchTerms && <TiTimesOutline style={{'cursor': 'pointer'}} onClick={(event) => setSearchTerms('')}/>) || <FaSearchengin />}
+                                               fontSize={'xl'}
+                                               mt={6}/>
+                        </InputGroup>
+                    <MaterialList page={page} topRef={topRef} searchTerms={searchTerms}/>
                 </VStack>
             </Grid>
         </Box>
