@@ -14,7 +14,7 @@ import {
     ButtonGroup,
     Input,
     InputGroup,
-    InputRightElement, Text,
+    InputRightElement, Text, useColorModeValue,
 } from "@chakra-ui/react"
 import {
     useQuery,
@@ -153,8 +153,9 @@ export const Index = () => {
                             <Input
                                 placeholder='Search'
                                 size='xl'
-                                bg={'white'}
+                                bg={useColorModeValue('white', 'gray.700')}
                                 rounded={'full'}
+                                color={useColorModeValue('gray.700', 'white')}
                                 px={5}
                                 py={2}
                                 mt={5}

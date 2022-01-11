@@ -8,7 +8,7 @@ import { Index as MaterialIndex } from "./routes/materials"
 import {
     ApolloClient,
     InMemoryCache,
-    ApolloProvider, createHttpLink,
+    ApolloProvider, createHttpLink
 } from "@apollo/client"
 import MaterialShow from "./routes/materials/show"
 import {I18nextProvider} from "react-i18next"
@@ -23,25 +23,16 @@ import AuthProvider from "./auth/AuthProvider"
 import Login from "./routes/login"
 import Logout from "./auth/Logout"
 import {CookiesProvider} from "react-cookie"
-import {setContext} from "@apollo/client/link/context"
+import ApolloRefreshTokenAuthMiddleware from "./auth/ApolloRefreshTokenAuthMiddleware";
 
 const link = createHttpLink({
     uri: 'http://127.0.0.1:8000/api/graphql'
 });
-
-const authLink = setContext((_, { headers }) => {
-    const token = localStorage.getItem('token')
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : "",
-        }
-    }
-});
 const client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(link),
+    link: ApolloRefreshTokenAuthMiddleware.concat(link),
 });
+
 
 ReactDOM.render(
   <React.StrictMode>
