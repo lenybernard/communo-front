@@ -9,6 +9,8 @@ export declare interface Material {
     category: MaterialCategory|null
     owner: User
     description: string
+    pricings: PricingConnection;
+    bookings: MaterialBookingConnection;
     createdAt: string|null
     updatedAt: string|null
 }
@@ -25,8 +27,15 @@ export declare interface MaterialCategoryConnection {
     pageInfo: MaterialCategoryPageInfo|null
     totalCount: number|null
 }
+export declare interface MaterialCollection {
+    collection: [MaterialEdge]
+    paginationInfo: PaginationInfo
+}
 
 //Edge of MaterialCategory." +
+export declare interface MaterialEdge {
+    node: Material
+}
 export declare interface MaterialCategoryEdge {
     node: MaterialCategory
     cursor: string|null
@@ -41,9 +50,9 @@ export declare interface MaterialCategoryPageInfo {
 }
 
 export declare interface PaginationInfo {
-    itemsPerPage: Number
-    lastPage: Number
-    totalCount: Number
+    itemsPerPage: number
+    lastPage: number
+    totalCount: number
 }
 
 export declare interface MaterialImage {
@@ -83,6 +92,41 @@ export declare interface MaterialPageInfo {
     startCursor: string
     hasNextPage: boolean|null
     hasPreviousPage: boolean|null
+}
+
+export declare interface Pricing {
+    id: string
+    _id: string
+    name: string
+    value: number
+    period: "day"|"halfday"|"coupleOfDay"|"weekend"|"week"|"month"
+}
+
+export declare interface PricingEdge {
+    node: Pricing
+    cursor: string|null
+}
+
+export declare interface PricingConnection {
+    edges: [PricingEdge]
+}
+export declare interface MaterialBookingConnection {
+    edges: [MaterialBookingEdge]
+}
+export declare interface MaterialBookingEdge {
+    node: MaterialBooking
+    cursor: string|null
+}
+export declare interface MaterialBooking {
+    id: string
+    _id: string
+    material: Material
+    user: User
+    price: number
+    startDate: string|null
+    endDate: string|null
+    createdAt: string|null
+    updatedAt: string|null
 }
 
 export declare interface Mutation {
@@ -128,7 +172,6 @@ interface Node {
 //    """The id of this node." +
     id: string
 }
-
 export declare interface User {
     id: string
     _id: string
@@ -138,7 +181,12 @@ export declare interface User {
     email: string|null
     roles: string[]
     password: string|null
-    materials: Material[]
+    materials: MaterialCollection
+    createdAt: string|null
+    updatedAt: string|null
+    avatarName: string|null
+    avatarSize: number|null
+    city: string|null
 }
 
 //Connection for User." +

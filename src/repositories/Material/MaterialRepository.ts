@@ -33,6 +33,7 @@ query GetMaterials($page: Int, $searchTerms: String) {
 export const findMaterialById = gql`
   query GetMaterial($id: ID!) {
     material(id: $id) {
+      _id
       id
       name
       model
@@ -44,6 +45,19 @@ export const findMaterialById = gql`
         lastname
         email
         phoneNumber
+        avatarName
+        avatarSize
+        city
+        roles
+        materials {
+          paginationInfo {
+            totalCount
+          }
+          collection {
+            _id
+            name
+          }
+        }
       }
       category {
         id
@@ -55,6 +69,25 @@ export const findMaterialById = gql`
             id
             imageName
             imageSize
+          }
+        }
+      }
+      pricings {
+        edges {
+          node {
+            _id
+            name
+            value
+            period
+          }
+        }
+      }
+      bookings {
+        edges {
+          node {
+            _id
+            startDate
+            endDate
           }
         }
       }

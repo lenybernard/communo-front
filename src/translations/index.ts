@@ -91,7 +91,9 @@ const resources = {
                     "suffix": "< Communo"
                 }
             },
-            "switch.language": "Switch to french",
+            "modal": {
+                "close": "Close"
+            },
             "material": {
                 "card": {
                     "button": {
@@ -106,6 +108,29 @@ const resources = {
                 "show": {
                     "details": "Details",
                     "features": "Features",
+                    "pricing": {
+                        "free": {
+                            0: "Free 😇",
+                            1: "Free 🎁",
+                            2: "Free 🤗",
+                            3: "Free 😘",
+                            4: "Free 🤯",
+                            5: "Free ✌️",
+                            6: "Free 🎅",
+                            7: "Free 💝",
+                            8: "Free 🎀",
+                            9: "Free 🎉",
+                        },
+                        "price": "{{amount}}€/{{period}}",
+                        "period": {
+                            "halfday": "halfday",
+                            "day": "day",
+                            "coupleOfDay": "Couple of days",
+                            "weekend": "week-end",
+                            "week": "week",
+                            "month": "month",
+                        },
+                    },
                     "button": {
                         "label": "Borrow this equipment to {{user.firstname}}"
                     },
@@ -117,6 +142,14 @@ const resources = {
                             "</>",
                     }
                 },
+            },
+            "switch.language": "Switch to french",
+            "user": {
+                "card": {
+                    "sharedItemsNumber": "{{count}} items",
+                    "ratingsNumber": "{{count}} evalutations",
+                    "contact": "Contact"
+                }
             }
         }
     },
@@ -209,6 +242,9 @@ const resources = {
                     "suffix": "< Communo"
                 }
             },
+            "modal": {
+                "close": "Fermer"
+            },
             "switch.language": "Passer en anglais",
             "material": {
                 "card": {
@@ -224,6 +260,29 @@ const resources = {
                 "show": {
                     "details": "Détails",
                     "features": "Fonctionnalités",
+                    "pricing": {
+                        "free": {
+                            0: "Gratuit 😇",
+                            1: "Gratuit 🎁",
+                            2: "Gratuit pas cher 🤗",
+                            3: "Gratuit 😘",
+                            4: "Nada! 🤯",
+                            5: "Gratuit ✌️",
+                            6: "0$ 🎅",
+                            7: "Gratuit 💝",
+                            8: "Cadeau 🎀",
+                            9: "Gratuit 🎉",
+                        },
+                        "price": "{{amount}}€/{{period}}",
+                        "period": {
+                            "halfday": "demi-journée",
+                            "day": "jour",
+                            "coupleOfDay": "2 jours",
+                            "weekend": "week-end",
+                            "week": "semaine",
+                            "month": "mois",
+                        }
+                    },
                     "button": {
                         "label": "Emprunter ce matériel à {{user.firstname}}"
                     },
@@ -234,6 +293,13 @@ const resources = {
 Mais n'hésite pas à contacter simplement **{{user.firstname}}** par email **{{user.email}}** ou en lui passant un coup de fil ou SMS au {{user.phoneNumber}}.`,
                     }
                 },
+            },
+            "user": {
+                "card": {
+                    "sharedItemsNumber": "{{count}} annonces",
+                    "ratingsNumber": "{{count}} évalutations",
+                    "contact": "Contacter"
+                }
             }
         }
     }

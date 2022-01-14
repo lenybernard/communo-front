@@ -6,17 +6,6 @@ export let apolloClient : ApolloClient<NormalizedCacheObject>
 export function needRefreshToken() {
     const tokenExpiresAt = localStorage.getItem('tokenExpiresAt') ? localStorage.getItem('tokenExpiresAt') : 0
     const token = localStorage.getItem('token') ?? null
-    if (tokenExpiresAt)
-        console.log(
-            [
-                (!token || !tokenExpiresAt || parseFloat(tokenExpiresAt) < Date.now()),
-                tokenExpiresAt,
-                parseFloat(tokenExpiresAt),
-                Date.now(),
-                parseFloat(tokenExpiresAt) - Date.now(),
-
-            ]
-        )
     return (!token || !tokenExpiresAt || parseFloat(tokenExpiresAt) < Date.now())
 }
 const refreshAuthToken = async () => {
