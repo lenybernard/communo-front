@@ -58,6 +58,18 @@ export const findMaterialById = gql`
             name
           }
         }
+        circles {
+          edges {
+            node {
+              _id
+              name
+              description
+              logoName
+              logoSize
+              city
+            }
+          }
+        }
       }
       category {
         id
@@ -73,12 +85,21 @@ export const findMaterialById = gql`
         }
       }
       pricings {
-        edges {
-          node {
-            _id
-            name
-            value
-            period
+        paginationInfo {
+          totalCount
+        }
+        collection {
+          _id
+          value
+          period
+          circles {
+            edges {
+              node {
+                _id
+                name
+                logoName
+              }
+            }
           }
         }
       }
@@ -88,6 +109,7 @@ export const findMaterialById = gql`
             _id
             startDate
             endDate
+            status
           }
         }
       }

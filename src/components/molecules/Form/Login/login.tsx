@@ -15,14 +15,17 @@ import {
     InputGroup,
 } from '@chakra-ui/react';
 import {useTranslation} from "react-i18next";
-import { useForm } from 'react-hook-form'
+import {SubmitHandler, useForm} from 'react-hook-form'
 import {toast} from "react-toastify";
 import React, {useState} from "react";
 import {FaRegEye, FaRegEyeSlash} from "react-icons/fa";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useAuth} from "../../../../auth/AuthStatus";
 
-
+type FormData = {
+    username: string;
+    password: string;
+};
 
 export const LoginForm = ({title = null, subtitle = null}: {title?: string|null, subtitle?: string|null}) => {
     const { t } = useTranslation()
@@ -32,13 +35,13 @@ export const LoginForm = ({title = null, subtitle = null}: {title?: string|null,
         register,
         setError,
         formState: { errors, isSubmitting },
-    } = useForm()
+    } = useForm<FormData>()
 
     let navigate = useNavigate();
     let location = useLocation();
     let auth = useAuth();
 
-    const onSubmit = (values: {username: string, password: string}) =>
+    const onSubmit = (values: FormData) =>
     {
         const requestOptions = {
             method: 'POST',
@@ -68,8 +71,6 @@ export const LoginForm = ({title = null, subtitle = null}: {title?: string|null,
             });
     }
 
-
-
     return (
         <Flex
             align={'center'}
@@ -89,7 +90,7 @@ export const LoginForm = ({title = null, subtitle = null}: {title?: string|null,
                             <FormErrorMessage>
                                 {errors.password && <p>Oups</p>}
                             </FormErrorMessage>
-                            <FormControl id="email" isInvalid={errors.email}>
+                            <FormControl id="email" isInvalid={errors.username !== null}>
                                 <FormLabel>{t('login.form.email.label')}</FormLabel>
                                 <Input type="email"
                                        placeholder={t('login.form.email.placeholder')}
@@ -100,7 +101,7 @@ export const LoginForm = ({title = null, subtitle = null}: {title?: string|null,
                                        })}
                                 />
                             </FormControl>
-                            <FormControl id="password" isInvalid={errors.password}>
+                            <FormControl id="password" isInvalid={errors.password !== null}>
                                 <FormLabel>{t('login.form.password.label')}</FormLabel>
                                 <InputGroup size='md'>
                                     <Input type={showPassword ? 'text' : 'password'}

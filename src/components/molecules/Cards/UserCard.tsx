@@ -15,7 +15,7 @@ import {
     ModalCloseButton,
     ModalBody,
     Spacer,
-    useDisclosure, Icon,
+    useDisclosure, Icon, AvatarGroup, HStack, Wrap,
 } from '@chakra-ui/react';
 import {User} from "../../../types";
 import {useTranslation} from "react-i18next";
@@ -25,9 +25,9 @@ import ExchangeMailCloud from "../../atoms/Illustrations/ExchangeMailCloud";
 import {HiOutlineChatAlt} from "react-icons/hi";
 import Card from "./Card";
 import Rating from "react-rating";
-import {Dispatch, SetStateAction} from "react";
+import {CircleLogo} from "../User/Circle/CircleLogo";
 
-export const UserCard = ({user, step, stepSetter = null}: {user: User, step: 'initial'|'choosePeriod', stepSetter: Dispatch<SetStateAction<'initial'|'choosePeriod'>>|null}) => {
+export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePeriod'}) => {
     let fullname = user.firstname + ' ' + user.lastname
     const { t } = useTranslation()
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -39,6 +39,7 @@ export const UserCard = ({user, step, stepSetter = null}: {user: User, step: 'in
                     src={
                         `http://127.0.0.1:8000/images/users/${user.avatarName}`
                     }
+                    name={`${user.firstname} ${user.lastname}`}
                     alt={'Avatar Alt'}
                     mb={4}
                     pos={'relative'}
@@ -53,10 +54,15 @@ export const UserCard = ({user, step, stepSetter = null}: {user: User, step: 'in
                         />
                     ) || fullname}
                 </Heading>
-                <Text fontWeight={600} color={'gray.500'} mb={4}>
-                    {user.city}
-                </Text>
-                <Center>
+                <Stack direction='column'>
+                    <Text fontWeight={600} color={'gray.500'} mb={4}>
+                        {user.city}
+                    </Text>
+                    <Wrap spacing='1rem' justify='center'>
+                        {user.circles.edges.map(({node}) => {
+                            return <CircleLogo circle={node}/>
+                        })}
+                    </Wrap>
                     <Rating
                         readonly
                         initialRating={4.2}
@@ -64,7 +70,7 @@ export const UserCard = ({user, step, stepSetter = null}: {user: User, step: 'in
                     <Text fontSize={'xs'} ml={'2'}>
 
                     </Text>
-                </Center>
+                </Stack>
 
                 <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
                     <Badge

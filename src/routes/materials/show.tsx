@@ -16,12 +16,6 @@ import {
     useDisclosure,
     GridItem,
     Button,
-    useColorModeValue,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalCloseButton,
-    ModalBody, Spacer, Modal, Link, ModalFooter, Center,
 } from "@chakra-ui/react"
 import {
     useQuery,
@@ -34,9 +28,8 @@ import {Helmet} from "react-helmet";
 import UserCard from "../../components/molecules/Cards/UserCard";
 import {useState} from "react";
 import AvailabilityPlanningCard from "../../components/molecules/Cards/AvailabilityPlanningCard";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import ExchangeMailCloud from "../../components/atoms/Illustrations/ExchangeMailCloud";
+import Zoom from 'react-medium-image-zoom'
+import 'react-medium-image-zoom/dist/styles.css'
 
 export const MaterialShow = () => {
     const { t } = useTranslation()
@@ -58,9 +51,9 @@ export const MaterialShow = () => {
             <Helmet>
                 <title>{material.name} {material.brand} {material.model} { t('meta.title.suffix') }</title>
             </Helmet>
-            <Container maxW={'7xl'}>
+            <Container maxW={'7xl'} minW={'300px'}>
                 <SimpleGrid
-                    columns={step === 'initial' ? { base: 1, lg: 4 } : { base: 1, lg: 6 }}
+                    columns={step === 'initial' ? { base: 1, lg: 5 } : { base: 1, lg: 6 }}
                     spacing={{ base: 8, md: 10 }}
                     pt={{ base: 9, md: 15 }}
                     pb={{ base: 15, md: 20 }}
@@ -68,7 +61,7 @@ export const MaterialShow = () => {
                 >
                     <GridItem rowSpan={{base: 1, lg: 2}} colSpan={step === 'initial' ? {base: 1, lg: 3} : {base: 1, lg: 2 }} display={step === 'choosePeriod' ? { base: 'none', lg: 'grid' } : 'inherit'}>
                         <Flex>
-                        <Link onClick={onOpen} width={'100%'}>
+                        <Zoom wrapStyle={{width: '100%'}}>
                             <Image
                                 rounded={'md'}
                                 alt={'product image'}
@@ -81,36 +74,14 @@ export const MaterialShow = () => {
                                 w={'100%'}
                                 h={{ base: '100%', sm: '400px', lg: '500px' }}
                             />
-                        </Link>
-                        <Modal isOpen={isOpen} onClose={onClose} isCentered size={'full'}>
-                            <ModalOverlay />
-                            <ModalContent>
-                                <ModalCloseButton title={t('modal.close')} />
-                                <ModalBody>
-                                    <Center>
-                                        <Image
-                                            rounded={'md'}
-                                            alt={'product image'}
-                                            src={
-                                                'http://127.0.0.1:8000/images/materials/' + material.images.edges[0].node?.imageName
-                                            }
-                                            fit={'none'}
-                                            align={'center'}
-                                        />
-                                    </Center>
-                                </ModalBody>
-                                <ModalFooter>
-                                    <Button onClick={onClose}>{t('modal.close')}</Button>
-                                </ModalFooter>
-                            </ModalContent>
-                        </Modal>
-                        {step === 'choosePeriod' && <UserCard user={material.owner} stepSetter={setStep} step={step}/>}
+                        </Zoom>
+                        {step === 'choosePeriod' && <UserCard user={material.owner} step={step}/>}
                     </Flex>
                     </GridItem>
-                    <GridItem rowSpan={2} colSpan={step === 'initial' ? 1 : 4}>
+                    <GridItem rowSpan={2} colSpan={step === 'initial' ? 2 : 4}>
                         {step === 'choosePeriod' && <Flex height={'100%'}><AvailabilityPlanningCard material={material} onBack={() => setStep('initial')} /></Flex>}
                         {step === 'initial' && <VStack>
-                            <UserCard user={material.owner} stepSetter={setStep} step={step}/>
+                            <UserCard user={material.owner} step={step}/>
                             <Box width={'100%'}>
                                 <Button
                                     flex={1}
@@ -154,9 +125,9 @@ export const MaterialShow = () => {
                             fontSize={'lg'}>
                             Prix:
                         </Text>
-                        {material.pricings.edges.map(({node}) => (
+                        {material.pricings.collection.map((pricing) => (
                             <Text
-                                key={node._id}
+                                key={pricing._id}
                                 colorScheme={'gray'}
                                 fontWeight={300}
                                 as={'span'}
@@ -165,9 +136,9 @@ export const MaterialShow = () => {
                                 borderBottomColor={'red'}
                                 mr={3}
                                 fontSize={'lg'}>
-                                {node.value === 0 ?
+                                {pricing.value === 0 ?
                                     t('material.show.pricing.free.' + Math.floor(Math.random() * 9) ) :
-                                    t('material.show.pricing.price', {'amount': node.value, 'period': t('material.show.pricing.period.' + node.period)})
+                                    t('material.show.pricing.price', {'amount': pricing.value, 'period': t('material.show.pricing.period.' + pricing.period)}) + (pricing.circles.edges.length > 0 ? ' (' + (pricing.circles.edges.map(({node}) => (node.name))) + ')' : '')
                                 }
                             </Text>
                         ))}

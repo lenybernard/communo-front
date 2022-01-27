@@ -31,6 +31,10 @@ export declare interface MaterialCollection {
     collection: [MaterialEdge]
     paginationInfo: PaginationInfo
 }
+export declare interface PricingConnection {
+    collection: [Pricing]
+    paginationInfo: PaginationInfo
+}
 
 //Edge of MaterialCategory." +
 export declare interface MaterialEdge {
@@ -97,9 +101,9 @@ export declare interface MaterialPageInfo {
 export declare interface Pricing {
     id: string
     _id: string
-    name: string
     value: number
-    period: "day"|"halfday"|"coupleOfDay"|"weekend"|"week"|"month"
+    period: 0.5|1|2|7|31
+    circles: CircleConnection
 }
 
 export declare interface PricingEdge {
@@ -107,9 +111,6 @@ export declare interface PricingEdge {
     cursor: string|null
 }
 
-export declare interface PricingConnection {
-    edges: [PricingEdge]
-}
 export declare interface MaterialBookingConnection {
     edges: [MaterialBookingEdge]
 }
@@ -122,11 +123,19 @@ export declare interface MaterialBooking {
     _id: string
     material: Material
     user: User
-    price: number
     startDate: string|null
     endDate: string|null
     createdAt: string|null
     updatedAt: string|null
+    status: 'estimated'|'validated'|'canceled'|'confirmed'|'closed'
+}
+export declare interface MaterialBookingDatePeriod {
+    id: string
+    _id: string
+    booking: MaterialBooking
+    startDate: string|null
+    endDate: string|null
+    price: number
 }
 
 export declare interface Mutation {
@@ -184,9 +193,11 @@ export declare interface User {
     materials: MaterialCollection
     createdAt: string|null
     updatedAt: string|null
+    avatarUrl: string
     avatarName: string|null
     avatarSize: number|null
     city: string|null
+    circles: CircleConnection;
 }
 
 //Connection for User." +
@@ -204,6 +215,38 @@ export declare interface UserEdge {
 
 //Information about the current page." +
 export declare interface UserPageInfo {
+    endCursor: string
+    startCursor: string
+    hasNextPage: boolean|null
+    hasPreviousPage: boolean|null
+}
+
+export declare interface Circle {
+    id: string
+    _id: string
+    name: string;
+    description: string|null;
+    city: string|null;
+    parent: Circle|null;
+    children: [Circle];
+    members: UserConnection;
+    logoName: string
+    logoSize: number
+}
+export declare interface CircleConnection {
+    edges: [CircleEdge]
+    pageInfo: CirclePageInfo|null
+    totalCount: number|null
+}
+
+//Edge of Circle." +
+export declare interface CircleEdge {
+    node: Circle
+    cursor: string|null
+}
+
+//Information about the current page." +
+export declare interface CirclePageInfo {
     endCursor: string
     startCursor: string
     hasNextPage: boolean|null

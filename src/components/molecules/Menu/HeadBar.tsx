@@ -106,9 +106,7 @@ export const HeadBar = ({ onOpen, links, ...rest }: MobileProps) => {
                                         <HStack>
                                             <Avatar
                                                 size={'sm'}
-                                                src={
-                                                    'https://fr.gravatar.com/userimage/16874251/7a7c10a6f4a6aff3a8039666fc7f08e4.jpg?size=200'
-                                                }
+                                                src={'http://127.0.0.1:8000' + auth.user.avatarUrl}
                                             />
                                             <VStack
                                                 display={{base: 'none', md: 'flex'}}

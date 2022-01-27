@@ -106,6 +106,13 @@ const resources = {
                     "itemsFound_plural": "{{count}} items found"
                 },
                 "show": {
+                    "booking": {
+                        "choosePeriod": {
+                            "title" : "Check availability",
+                            "startDate": "Start date",
+                            "endDate": "End date"
+                        },
+                    },
                     "details": "Details",
                     "features": "Features",
                     "pricing": {
@@ -123,12 +130,11 @@ const resources = {
                         },
                         "price": "{{amount}}€/{{period}}",
                         "period": {
-                            "halfday": "halfday",
-                            "day": "day",
-                            "coupleOfDay": "Couple of days",
-                            "weekend": "week-end",
-                            "week": "week",
-                            "month": "month",
+                            0.5: "halfday",
+                            1: "day",
+                            2: "week-end",
+                            7: "week",
+                            31: "month",
                         },
                     },
                     "button": {
@@ -258,6 +264,13 @@ const resources = {
                     "itemsFound_plural": "{{count}} résultats"
                 },
                 "show": {
+                    "booking": {
+                        "choosePeriod": {
+                            "title" : "Vérifiez la dispo",
+                            "startDate": "Début",
+                            "endDate": "Fin"
+                        },
+                    },
                     "details": "Détails",
                     "features": "Fonctionnalités",
                     "pricing": {
@@ -275,12 +288,11 @@ const resources = {
                         },
                         "price": "{{amount}}€/{{period}}",
                         "period": {
-                            "halfday": "demi-journée",
-                            "day": "jour",
-                            "coupleOfDay": "2 jours",
-                            "weekend": "week-end",
-                            "week": "semaine",
-                            "month": "mois",
+                            0.5: "demi-journée",
+                            1: "jour",
+                            2: "week-end",
+                            7: "semaine",
+                            31: "mois",
                         }
                     },
                     "button": {
