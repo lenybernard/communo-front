@@ -7,7 +7,6 @@ import {
     Button,
     Badge,
     useColorModeValue,
-    Center,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -15,7 +14,7 @@ import {
     ModalCloseButton,
     ModalBody,
     Spacer,
-    useDisclosure, Icon, AvatarGroup, HStack, Wrap,
+    useDisclosure, Wrap,
 } from '@chakra-ui/react';
 import {User} from "../../../types";
 import {useTranslation} from "react-i18next";
@@ -27,7 +26,7 @@ import Card from "./Card";
 import Rating from "react-rating";
 import {CircleLogo} from "../User/Circle/CircleLogo";
 
-export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePeriod'}) => {
+export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePeriod'|'validated'}) => {
     let fullname = user.firstname + ' ' + user.lastname
     const { t } = useTranslation()
     const { isOpen, onOpen, onClose } = useDisclosure()

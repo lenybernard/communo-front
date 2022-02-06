@@ -32,7 +32,7 @@ import AvailabilityPlanning from "../../components/molecules/Form/Material/Booki
 
 export const MaterialShow = () => {
     const { t } = useTranslation()
-    const [ step, setStep ] = useState<'initial'|'choosePeriod'>('initial')
+    const [ step, setStep ] = useState<'initial'|'choosePeriod'|'validated'>('initial')
     let params = useParams();
     const {loading, error, data} = useQuery(findMaterialById, {
         variables: {
@@ -51,13 +51,13 @@ export const MaterialShow = () => {
             </Helmet>
             <Container maxW={'7xl'} minW={'300px'}>
                 <SimpleGrid
-                    columns={step === 'initial' ? { base: 1, lg: 5 } : { base: 1, lg: 6 }}
+                    columns={(step === 'initial' || step === 'validated') ? { base: 1, lg: 5 } : { base: 1, lg: 6 }}
                     spacing={{ base: 8, md: 10 }}
                     pt={{ base: 9, md: 15 }}
                     pb={{ base: 15, md: 20 }}
                     gap={8}
                 >
-                    <GridItem rowSpan={{base: 1, lg: 2}} colSpan={step === 'initial' ? {base: 1, lg: 3} : {base: 1, lg: 2 }} display={step === 'choosePeriod' ? { base: 'none', lg: 'grid' } : 'inherit'}>
+                    <GridItem rowSpan={{base: 1, lg: 2}} colSpan={(step === 'initial' || step === 'validated') ? {base: 1, lg: 3} : {base: 1, lg: 2 }} display={step === 'choosePeriod' ? { base: 'none', lg: 'grid' } : 'inherit'}>
                         <Flex>
                         <Zoom wrapStyle={{width: '100%'}}>
                             <Image
@@ -76,9 +76,9 @@ export const MaterialShow = () => {
                         {step === 'choosePeriod' && <UserCard user={material.owner} step={step}/>}
                     </Flex>
                     </GridItem>
-                    <GridItem rowSpan={2} colSpan={step === 'initial' ? 2 : 4}>
-                        {step === 'choosePeriod' && <Flex height={'100%'}><AvailabilityPlanning material={material} onBack={() => setStep('initial')} /></Flex>}
-                        {step === 'initial' && <VStack>
+                    <GridItem rowSpan={2} colSpan={(step === 'initial' || step === 'validated') ? 2 : 4}>
+                        {step === 'choosePeriod' && <Flex height={'100%'}><AvailabilityPlanning material={material} onBack={() => setStep('initial')} setStep={setStep} /></Flex>}
+                        {(step === 'initial' || step === 'validated') && <VStack>
                             <UserCard user={material.owner} step={step}/>
                             <Box width={'100%'}>
                                 <Button

@@ -12,7 +12,7 @@ import {Material, MaterialBooking} from "../../../../../types";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import {DateRangePicker, FocusedInputShape, isSameDay} from 'react-dates';
-import {useEffect, useState} from "react";
+import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import moment from "moment";
 import 'moment/locale/fr'
 import {FaArrowLeft} from "react-icons/fa";
@@ -27,7 +27,7 @@ export interface ButtonState {
     loadingText: string
 }
 
-export const AvailabilityPlanning = ({material, onBack}: {material: Material, onBack: () => void}) => {
+export const AvailabilityPlanning = ({material, onBack, setStep}: {material: Material, onBack: () => void, setStep: Dispatch<SetStateAction<"initial" | "choosePeriod" | "validated">>}) => {
     const {t, i18n} = useTranslation()
     const [startDate, setStartDate] = useState<moment.Moment | null>(null)
     const [endDate, setEndDate] = useState<moment.Moment | null>(null)
@@ -63,7 +63,9 @@ export const AvailabilityPlanning = ({material, onBack}: {material: Material, on
                 booking={booking}
                 material={material}
                 setButtonState={setButtonState}
-                buttonState={buttonState}/>)
+                buttonState={buttonState}
+                setStep={setStep}
+            />)
         }
     }, [booking, buttonState])
 
