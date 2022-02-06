@@ -13,7 +13,6 @@ import {
     StackDivider,
     Flex,
     Spinner,
-    useDisclosure,
     GridItem,
     Button,
 } from "@chakra-ui/react"
@@ -27,9 +26,9 @@ import {findMaterialById} from "../../repositories/Material/MaterialRepository";
 import {Helmet} from "react-helmet";
 import UserCard from "../../components/molecules/Cards/UserCard";
 import {useState} from "react";
-import AvailabilityPlanningCard from "../../components/molecules/Cards/AvailabilityPlanningCard";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
+import AvailabilityPlanning from "../../components/molecules/Form/Material/Booking/AvailabilityPlanning";
 
 export const MaterialShow = () => {
     const { t } = useTranslation()
@@ -44,7 +43,6 @@ export const MaterialShow = () => {
     if (!loading) {
         material = data.material
     }
-    const { isOpen, onOpen, onClose } = useDisclosure()
 
     return (error && <p>Error </p>) || (loading && <Spinner/>) || (material &&
         <>
@@ -79,7 +77,7 @@ export const MaterialShow = () => {
                     </Flex>
                     </GridItem>
                     <GridItem rowSpan={2} colSpan={step === 'initial' ? 2 : 4}>
-                        {step === 'choosePeriod' && <Flex height={'100%'}><AvailabilityPlanningCard material={material} onBack={() => setStep('initial')} /></Flex>}
+                        {step === 'choosePeriod' && <Flex height={'100%'}><AvailabilityPlanning material={material} onBack={() => setStep('initial')} /></Flex>}
                         {step === 'initial' && <VStack>
                             <UserCard user={material.owner} step={step}/>
                             <Box width={'100%'}>

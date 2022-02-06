@@ -112,6 +112,23 @@ const resources = {
                             "startDate": "Start date",
                             "endDate": "End date"
                         },
+                        "summary": {
+                            "introduction": "Ok, so here is a little summary before validating your request with {{owner.firstname}}.",
+                            "price": "It would cost in the end {{price}}€",
+                            "periodItem": {
+                                "price": "{{price}}€",
+                                "range": {
+                                    "label": "from {{startDate}} to {{endDate}}",
+                                },
+                                "singleDay": {
+                                    "label": "{{day}}",
+                                }
+                            },
+                            "button": {
+                                "validate": "Let's go ?",
+                                "validated": "Oh yeah !",
+                            }
+                        }
                     },
                     "details": "Details",
                     "features": "Features",
@@ -270,6 +287,23 @@ const resources = {
                             "startDate": "Début",
                             "endDate": "Fin"
                         },
+                        "summary": {
+                            "introduction": "Ok, alors voici un petit récapitulatif avant de valider ta demande auprès de {{owner.firstname}}.",
+                            "price": "Au total, cela coûterait {{price}}€",
+                            "periodItem": {
+                                "price": "{{price}}€",
+                                "range": {
+                                    "label": "du {{startDate}} au {{endDate}}",
+                                },
+                                "singleDay": {
+                                    "label": "le {{day}}",
+                                }
+                            },
+                            "button": {
+                                "validate": "C'est parti ?",
+                                "validated": "Oh yeah !",
+                            }
+                        }
                     },
                     "details": "Détails",
                     "features": "Fonctionnalités",

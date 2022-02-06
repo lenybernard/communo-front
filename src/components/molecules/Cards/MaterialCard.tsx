@@ -23,7 +23,7 @@ type MaterialCardProps = {
 export const MaterialCard = ({picture, name, model, brand, id}: MaterialCardProps) => {
     const { t } = useTranslation()
 
-    return <Center py={12}>
+    return <Center py={12} key={`materialCard${id}`}>
         <Link to={`/materials/${id}`}>
             <Box
                 role={'group'}

@@ -1,6 +1,6 @@
 import UserCard from "../Cards/UserCard";
 import {Box, Button} from "@chakra-ui/react";
-import AvailabilityPlanningCard from "../Cards/AvailabilityPlanningCard";
+import AvailabilityPlanningCard from "../Form/Material/Booking/AvailabilityPlanning";
 import * as React from "react";
 import {useState} from "react";
 import {Material} from "../../../types";

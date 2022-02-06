@@ -60,7 +60,7 @@ export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePerio
                     </Text>
                     <Wrap spacing='1rem' justify='center'>
                         {user.circles.edges.map(({node}) => {
-                            return <CircleLogo circle={node}/>
+                            return <CircleLogo key={node._id} circle={node}/>
                         })}
                     </Wrap>
                     <Rating

@@ -127,7 +127,9 @@ export declare interface MaterialBooking {
     endDate: string|null
     createdAt: string|null
     updatedAt: string|null
+    price: number|null
     status: 'estimated'|'validated'|'canceled'|'confirmed'|'closed'
+    periods: [MaterialBookingDatePeriod]
 }
 export declare interface MaterialBookingDatePeriod {
     id: string
