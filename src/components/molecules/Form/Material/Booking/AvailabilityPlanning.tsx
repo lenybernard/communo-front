@@ -1,14 +1,13 @@
+import * as React from "react";
 import {
     Box,
     Button,
     Heading,
     Spacer,
-    Text,
     useColorModeValue,
     VStack,
 } from '@chakra-ui/react';
-import * as React from "react";
-import {Material, MaterialBooking} from "../../../../../types";
+import {Material} from "../../../../../types";
 import "react-dates/initialize";
 import "react-dates/lib/css/_datepicker.css";
 import {DateRangePicker, FocusedInputShape, isSameDay} from 'react-dates';
@@ -17,8 +16,8 @@ import moment from "moment";
 import 'moment/locale/fr'
 import {FaArrowLeft} from "react-icons/fa";
 import {useTranslation} from "react-i18next";
-import {toast} from "react-toastify";
 import BookingSummary from "./BookingSummary";
+import BookingContext from "../../../../../contexts/BookingContext";
 
 export interface ButtonState {
     bgGradient: string
@@ -32,9 +31,9 @@ export const AvailabilityPlanning = ({material, onBack, setStep}: {material: Mat
     const [startDate, setStartDate] = useState<moment.Moment | null>(null)
     const [endDate, setEndDate] = useState<moment.Moment | null>(null)
     const [focusedInput, setFocusedInput] = useState<FocusedInputShape | null>('startDate')
-    const [booking, setBooking] = useState<MaterialBooking|null>()
     const [buttonState, setButtonState] = useState<null|ButtonState>(null)
     const [summary, setSummary] = useState<Element|null>()
+    const bookingContext = React.useContext(BookingContext);
     moment.locale(i18n.language)
     let bookedDays: moment.Moment[] = []
     material.bookings.edges.map(({node}) => {
@@ -55,19 +54,18 @@ export const AvailabilityPlanning = ({material, onBack, setStep}: {material: Mat
         return true
     })
 
-
     useEffect(() => {
-        if (booking) {
+        if (bookingContext?.booking) {
             // @ts-ignore
             setSummary(<BookingSummary
-                booking={booking}
+                booking={bookingContext?.booking}
                 material={material}
                 setButtonState={setButtonState}
                 buttonState={buttonState}
                 setStep={setStep}
             />)
         }
-    }, [booking, buttonState])
+    }, [bookingContext, buttonState])
 
     return (
         <Box
@@ -106,8 +104,7 @@ export const AvailabilityPlanning = ({material, onBack, setStep}: {material: Mat
                         fetch(url.toString(), requestOptions)
                             .then(response => response.json())
                             .then(response => {
-                                toast('Ça couterait ' + response.price + '€ m\'sieur')
-                                setBooking(response)
+                                bookingContext?.setBooking(response)
                             })
                         }
                     }} // PropTypes.func.isRequired,
@@ -123,7 +120,7 @@ export const AvailabilityPlanning = ({material, onBack, setStep}: {material: Mat
                 />
                 <Spacer/>
 
-                {booking && summary}
+                {bookingContext?.booking && summary}
             </VStack>
         </Box>
     );

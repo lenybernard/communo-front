@@ -113,7 +113,7 @@ const resources = {
                             "endDate": "End date"
                         },
                         "summary": {
-                            "introduction": "Ok, so here is a little summary before validating your request with {{owner.firstname}}.",
+                            "introduction": "Ok, so here is a little summary before validating your request with {{owner.firstname}} :",
                             "price": "It would cost in the end {{price}}€",
                             "periodItem": {
                                 "price": "{{price}}€",
@@ -128,6 +128,15 @@ const resources = {
                                 "validate": "Let's go ?",
                                 "validated": "Oh yeah !",
                             }
+                        },
+                        "validate": {
+                            "success": {
+                                "title": "OK ! The request has been made",
+                                "body": "An email has been sent to {{user.firstname}}, he should contact you shortly.<br/>" +
+                                    "If you don't get an answer from him, don't hesitate to give a call or a text message " +
+                                    "to remind him/her about your request.",
+                            },
+                            "error" : "Oups, there seems to be a problem with the reservation. Try again"
                         }
                     },
                     "details": "Details",
@@ -288,7 +297,7 @@ const resources = {
                             "endDate": "Fin"
                         },
                         "summary": {
-                            "introduction": "Ok, alors voici un petit récapitulatif avant de valider ta demande auprès de {{owner.firstname}}.",
+                            "introduction": "Ok, alors voici un petit récapitulatif avant de valider ta demande auprès de {{owner.firstname}} :",
                             "price": "Au total, cela coûterait {{price}}€",
                             "periodItem": {
                                 "price": "{{price}}€",
@@ -303,6 +312,15 @@ const resources = {
                                 "validate": "C'est parti ?",
                                 "validated": "Oh yeah !",
                             }
+                        },
+                        "validate": {
+                            "success": {
+                                "title": "Parfait !",
+                                "body": "Un mail a été envoyé à {{user.firstname}}, il devrait te recontacter prochainement.<br/>" +
+                                    "Si tu n'obtiens pas de réponse de sa part, n'hésite pas à l'appeler ou à lui envoyer un petit SMS" +
+                                    "pour le lui notifier ou rappeler ({{user.phoneNumberObject}}).",
+                            },
+                            "error" : "Oups, il semble y avoir un problème au niveau de la réservation. N'hésite pas à réessayer"
                         }
                     },
                     "details": "Détails",

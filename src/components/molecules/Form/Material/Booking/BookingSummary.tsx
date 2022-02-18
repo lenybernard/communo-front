@@ -14,11 +14,21 @@ import {useTranslation} from "react-i18next"
 import {ButtonState} from "./AvailabilityPlanning"
 import {toast} from "react-toastify"
 import {Navigate, useLocation} from "react-router-dom";
+import BookingContext from "../../../../../contexts/BookingContext";
 
-            export const BookingSummary = ({booking, material, buttonState, setButtonState, setStep}: {booking: MaterialBooking, material: Material, setButtonState: Dispatch<SetStateAction<ButtonState | null>>, buttonState: ButtonState|null, setStep: Dispatch<SetStateAction<"initial" | "choosePeriod" | "validated">>}) => {
+interface BookingSummaryProps {
+    booking: MaterialBooking
+    material: Material
+    setButtonState: Dispatch<SetStateAction<ButtonState | null>>
+    buttonState: ButtonState|null
+    setStep: Dispatch<SetStateAction<"initial" | "choosePeriod" | "validated">>
+}
+
+export const BookingSummary = ({booking, material, buttonState, setButtonState, setStep}: BookingSummaryProps) => {
     const {t, i18n} = useTranslation()
     moment.locale(i18n.language)
     let location = useLocation();
+    const bookingContext = React.useContext(BookingContext);
 
     const handleSubmit = (booking: MaterialBooking) =>
     {
@@ -27,7 +37,7 @@ import {Navigate, useLocation} from "react-router-dom";
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({id: booking._id}, null, 2)
         }
-        fetch(`http://localhost:8000/api/materialbookings/${booking.id}/validate`, requestOptions)
+        fetch(`http://localhost:8000/api/material_bookings/${booking.id}/validate`, requestOptions)
             .then(response => response.json())
             .then(response => {
                 if (response.message) {
@@ -36,13 +46,13 @@ import {Navigate, useLocation} from "react-router-dom";
                 if (response.error) {
                     throw new Error(response.error);
                 }
-                toast(t('materials.validate.toast.success.' + Math.floor(Math.random() * 4), {'user': response.user}))
                 setStep('validated')
+                bookingContext?.setBooking(response)
 
                 return <Navigate to="/login" state={{ from: location }} replace />;
             })
             .catch(error => {
-                let errorMessage = t('materials.validate.toast.error.' + Math.floor(Math.random() * 5), {'error': error.toString().replace(/^Error: /, '')})
+                let errorMessage = t('material.show.booking.validate.error.' + Math.floor(Math.random() * 5), {'error': error.toString().replace(/^Error: /, '')})
                 toast.error(errorMessage)
             });
 

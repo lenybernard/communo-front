@@ -14,25 +14,33 @@ import {
     Flex,
     Spinner,
     GridItem,
-    Button,
+    Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, useDisclosure,
 } from "@chakra-ui/react"
 import {
     useQuery,
-} from "@apollo/client";
-import { useParams } from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {Material} from "../../types";
-import {findMaterialById} from "../../repositories/Material/MaterialRepository";
-import {Helmet} from "react-helmet";
-import UserCard from "../../components/molecules/Cards/UserCard";
-import {useState} from "react";
+} from "@apollo/client"
+import { useParams } from "react-router-dom"
+import {useTranslation} from "react-i18next"
+import {Material, MaterialBooking} from "../../types"
+import {findMaterialById} from "../../repositories/Material/MaterialRepository"
+import {Helmet} from "react-helmet"
+import Lottie from "react-lottie"
+import animationData from './../../lotties/fist-checks.json'
+import ReactMarkdown from "react-markdown"
+import UserCard from "../../components/molecules/Cards/UserCard"
+import {useEffect, useState} from "react"
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
-import AvailabilityPlanning from "../../components/molecules/Form/Material/Booking/AvailabilityPlanning";
+import AvailabilityPlanning from "../../components/molecules/Form/Material/Booking/AvailabilityPlanning"
+import remarkGfm from "remark-gfm";
+import BookingContext from "../../contexts/BookingContext";
+import BookingSummary from "../../components/molecules/Form/Material/Booking/BookingSummary";
+
 
 export const MaterialShow = () => {
     const { t } = useTranslation()
     const [ step, setStep ] = useState<'initial'|'choosePeriod'|'validated'>('initial')
+    const [booking, setBooking] = useState<MaterialBooking|null>()
     let params = useParams();
     const {loading, error, data} = useQuery(findMaterialById, {
         variables: {
@@ -43,9 +51,15 @@ export const MaterialShow = () => {
     if (!loading) {
         material = data.material
     }
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    useEffect(() => {
+        if (booking && booking.status === 'validated') {
+            onOpen()
+        }
+    }, [booking])
 
     return (error && <p>Error </p>) || (loading && <Spinner/>) || (material &&
-        <>
+        <BookingContext.Provider value={{booking, setBooking}}>
             <Helmet>
                 <title>{material.name} {material.brand} {material.model} { t('meta.title.suffix') }</title>
             </Helmet>
@@ -106,6 +120,31 @@ export const MaterialShow = () => {
                         }
                     </GridItem>
                 </SimpleGrid>
+
+                <Modal motionPreset="slideInBottom" onClose={onClose} isOpen={isOpen} isCentered>
+                    <ModalOverlay />
+                    <ModalContent pb={5}>
+                        <ModalHeader>{t('material.show.booking.validate.success.title')}</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <Lottie
+                                options={{
+                                    loop: false,
+                                    autoplay: true,
+                                    animationData: animationData,
+                                    rendererSettings: {
+                                        preserveAspectRatio: "xMidYMid slice"
+                                    }
+                                }}
+                                isClickToPauseDisabled={true}
+                                height={400}
+                                width={400}
+                                speed={2.5}
+                            />
+                            <div dangerouslySetInnerHTML={{__html: t('material.show.booking.validate.success.body', {'user': booking?.user})}} />
+                        </ModalBody>
+                    </ModalContent>
+                </Modal>
 
                 <Stack spacing={{ base: 6, md: 10 }}>
                     <Box as={'header'}>
@@ -203,7 +242,7 @@ export const MaterialShow = () => {
                     </Stack>
                 </Stack>
             </Container>
-        </>
+        </BookingContext.Provider>
     )
 }
 

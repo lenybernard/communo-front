@@ -29,6 +29,8 @@ import {useNavigate} from "react-router-dom";
 import {Helmet} from "react-helmet";
 import {FaSearchengin} from "react-icons/fa";
 import {TiTimesOutline} from "react-icons/ti";
+import animationData from "../../lotties/paint-color-loader.json";
+import Lottie from "react-lottie";
 
 interface MaterialListProps {
     page: number
@@ -75,8 +77,20 @@ const MaterialList = ({page, topRef, searchTerms}: MaterialListProps) => {
     for (let i = 1; i <= paginationInfo.lastPage; i++) {
         pageRange.push(i);
     }
+    const loader = <Lottie
+        options={{
+            loop: true,
+            autoplay: true,
+            animationData: animationData,
+            rendererSettings: {
+                preserveAspectRatio: "xMidYMid slice"
+            }
+        }}
+        height={400}
+        width={400}
+    />
 
-    return (loading && <Spinner size='xl' />) || (error && <div>Error :(</div>) || (
+    return (loading && loader) || (error && <div>Error :(</div>) || (
         <Container maxW='8xl' ref={topRef}>
             <Text>{t('material.index.itemsFound' + (paginationInfo.totalCount > 1 ? '_plural' : ''), {'count': paginationInfo.totalCount})}</Text>
             <SlideFade in={!loading} offsetY='300px'>

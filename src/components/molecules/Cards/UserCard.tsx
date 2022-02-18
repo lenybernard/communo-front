@@ -64,7 +64,7 @@ export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePerio
                     </Wrap>
                     <Rating
                         readonly
-                        initialRating={4.2}
+                        initialRating={user.averageRatingScore ?? 0}
                     />
                     <Text fontSize={'xs'} ml={'2'}>
 
@@ -77,7 +77,7 @@ export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePerio
                         py={1}
                         bg={useColorModeValue('gray.50', 'gray.800')}
                         fontWeight={'400'}>
-                        {/*{t('user.card.sharedItemsNumber',{'count': user.ratings.paginationInfo.totalCount})}*/}42 évaluations
+                        {t('user.card.ratingsNumber', {'count': user.ratings.totalCount})}
                     </Badge>
                     <Badge
                         px={2}

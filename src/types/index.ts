@@ -24,7 +24,7 @@ export declare interface MaterialCategory {
 //Connection for MaterialCategory.
 export declare interface MaterialCategoryConnection {
     edges: [MaterialCategoryEdge]
-    pageInfo: MaterialCategoryPageInfo|null
+    pageInfo: PageInfo|null
     totalCount: number|null
 }
 export declare interface MaterialCollection {
@@ -34,6 +34,15 @@ export declare interface MaterialCollection {
 export declare interface PricingConnection {
     collection: [Pricing]
     paginationInfo: PaginationInfo
+}
+export declare interface RatingConnection {
+    edges: [RatingEdge]
+    pageInfo: PageInfo|null
+    totalCount: number
+}
+export declare interface RatingEdge {
+    node: Rating
+    cursor: string|null
 }
 
 //Edge of MaterialCategory." +
@@ -46,7 +55,7 @@ export declare interface MaterialCategoryEdge {
 }
 
 //Information about the current page." +
-export declare interface MaterialCategoryPageInfo {
+export declare interface PageInfo {
     endCursor: string
     startCursor: string
     hasNextPage: boolean|null
@@ -72,7 +81,7 @@ export declare interface MaterialImage {
 //Connection for MaterialImage." +
 export declare interface MaterialImageConnection {
     edges: [MaterialImageEdge]
-    pageInfo: MaterialImagePageInfo|null
+    pageInfo: PageInfo|null
     totalCount: number|null
 }
 
@@ -83,20 +92,10 @@ export declare interface MaterialImageEdge {
 }
 
 //Information about the current page." +
-export declare interface MaterialImagePageInfo {
-    endCursor: string
-    startCursor: string
-    hasNextPage: boolean|null
-    hasPreviousPage: boolean|null
-}
+
 
 //Information about the current page." +
-export declare interface MaterialPageInfo {
-    endCursor: string
-    startCursor: string
-    hasNextPage: boolean|null
-    hasPreviousPage: boolean|null
-}
+
 
 export declare interface Pricing {
     id: string
@@ -200,12 +199,14 @@ export declare interface User {
     avatarSize: number|null
     city: string|null
     circles: CircleConnection;
+    ratings: RatingConnection;
+    averageRatingScore: number|null;
 }
 
 //Connection for User." +
 export declare interface UserConnection {
     edges: [UserEdge]
-    pageInfo: UserPageInfo|null
+    pageInfo: PageInfo|null
     totalCount: number|null
 }
 
@@ -216,12 +217,7 @@ export declare interface UserEdge {
 }
 
 //Information about the current page." +
-export declare interface UserPageInfo {
-    endCursor: string
-    startCursor: string
-    hasNextPage: boolean|null
-    hasPreviousPage: boolean|null
-}
+
 
 export declare interface Circle {
     id: string
@@ -237,7 +233,7 @@ export declare interface Circle {
 }
 export declare interface CircleConnection {
     edges: [CircleEdge]
-    pageInfo: CirclePageInfo|null
+    pageInfo: PageInfo|null
     totalCount: number|null
 }
 
@@ -248,11 +244,17 @@ export declare interface CircleEdge {
 }
 
 //Information about the current page." +
-export declare interface CirclePageInfo {
-    endCursor: string
-    startCursor: string
-    hasNextPage: boolean|null
-    hasPreviousPage: boolean|null
+
+
+export declare interface Rating {
+    id: string
+    _id: string
+    value: number
+    booking: MaterialBooking
+    author: User
+    user: User
+    createdAt: string|null
+    updatedAt: string|null
 }
 
 export declare interface createMaterialCategoryInput {

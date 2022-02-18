@@ -70,6 +70,10 @@ export const findMaterialById = gql`
             }
           }
         }
+        averageRatingScore
+        ratings {
+          totalCount
+        }
       }
       category {
         id
