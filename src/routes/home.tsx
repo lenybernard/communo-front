@@ -13,22 +13,30 @@ import {
     ModalOverlay,
     ModalContent,
     ModalCloseButton,
-    ModalBody, useDisclosure,
-} from '@chakra-ui/react';
-import {useTranslation} from "react-i18next";
-import AccountingIllustration from '../components/atoms/Illustrations/AccountingIllustration';
-import Heart from "../components/atoms/Illustrations/Heart";
-import * as React from "react";
-import {useNavigate} from "react-router-dom";
-import {Helmet} from "react-helmet";
+    ModalBody,
+    useDisclosure,
+} from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
+import { AccountingIllustration } from '../components/atoms/Illustrations/AccountingIllustration'
+import { Heart } from '../components/atoms/Illustrations/Heart'
+import * as React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
-export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null}) => {
+export const Home = ({
+    modalComponent,
+}: {
+    modalComponent?: React.ReactElement | null
+}) => {
     const { t } = useTranslation()
-    let navigate = useNavigate();
+    const navigate = useNavigate()
     const updateUrl = () => {
-        navigate("/");
+        navigate('/')
     }
-    const { isOpen, onClose } = useDisclosure({defaultIsOpen: modalComponent !== undefined, onClose: updateUrl})
+    const { isOpen, onClose } = useDisclosure({
+        defaultIsOpen: modalComponent !== undefined,
+        onClose: updateUrl,
+    })
 
     return (
         <>
@@ -40,11 +48,13 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                     textAlign={'center'}
                     align={'center'}
                     spacing={{ base: 8, md: 10 }}
-                    py={{ base: 20, md: 28 }}>
+                    py={{ base: 20, md: 28 }}
+                >
                     <Heading
                         fontWeight={600}
                         fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }}
-                        lineHeight={'110%'}>
+                        lineHeight={'110%'}
+                    >
                         {t('home.hero1.line1')}{' '}
                         <Text
                             as={'span'}
@@ -61,7 +71,8 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                             rounded={'full'}
                             px={6}
                             colorScheme={useColorModeValue('red', 'yellow')}
-                            _hover={{ bg: 'orange.500' }}>
+                            _hover={{ bg: 'orange.500' }}
+                        >
                             {t('home.hero1.getStarted')}
                         </Button>
                         <Button rounded={'full'} px={6}>
@@ -81,19 +92,20 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                     as={Box}
                     textAlign={'center'}
                     spacing={{ base: 8, md: 14 }}
-                    py={{ base: 20, md: 36 }}>
+                    py={{ base: 20, md: 36 }}
+                >
                     <Heading
                         fontWeight={600}
                         fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
-                        lineHeight={'110%'}>
-                        {t('home.hero.line1')}<br />
+                        lineHeight={'110%'}
+                    >
+                        {t('home.hero.line1')}
+                        <br />
                         <Text as={'span'} color={'green.400'}>
                             {t('home.hero.line2')}
                         </Text>
                     </Heading>
-                    <Text color={'gray.500'}>
-                        {t('home.hero.description')}
-                    </Text>
+                    <Text color={'gray.500'}>{t('home.hero.description')}</Text>
 
                     <Heart
                         height={{ sm: '24rem', lg: '28rem' }}
@@ -104,7 +116,8 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                         spacing={3}
                         align={'center'}
                         alignSelf={'center'}
-                        position={'relative'}>
+                        position={'relative'}
+                    >
                         <Button
                             colorScheme={'green'}
                             bg={'green.400'}
@@ -112,16 +125,24 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                             px={6}
                             _hover={{
                                 bg: 'green.500',
-                            }}>
+                            }}
+                        >
                             {t('home.hero.getStarted')}
                         </Button>
-                        <Button variant={'link'} colorScheme={'blue'} size={'sm'}>
+                        <Button
+                            variant={'link'}
+                            colorScheme={'blue'}
+                            size={'sm'}
+                        >
                             {t('home.hero.how')}
                         </Button>
                         <Box>
                             <Icon
                                 as={Arrow}
-                                color={useColorModeValue('gray.800', 'gray.300')}
+                                color={useColorModeValue(
+                                    'gray.800',
+                                    'gray.300'
+                                )}
                                 w={71}
                                 position={'absolute'}
                                 right={-71}
@@ -133,7 +154,8 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                                 position={'absolute'}
                                 right={'-125px'}
                                 top={'-30px'}
-                                transform={'rotate(10deg)'}>
+                                transform={'rotate(10deg)'}
+                            >
                                 {t('home.hero.buttonIncentive')}
                             </Text>
                         </Box>
@@ -144,13 +166,11 @@ export const Home = ({modalComponent}: {modalComponent?: React.ReactElement|null
                 <ModalOverlay />
                 <ModalContent>
                     <ModalCloseButton />
-                    <ModalBody>
-                        {modalComponent}
-                    </ModalBody>
+                    <ModalBody>{modalComponent}</ModalBody>
                 </ModalContent>
             </Modal>
         </>
-    );
+    )
 }
 
 const Arrow = createIcon({
@@ -164,6 +184,4 @@ const Arrow = createIcon({
             fill="currentColor"
         />
     ),
-});
-
-export default Home
+})

@@ -8,19 +8,29 @@ import {
     VisuallyHidden,
     Input,
     IconButton,
-    useColorModeValue, Circle, Flex,
-} from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
-import {FaInstagram, FaSymfony, FaTwitter, FaYoutube} from 'react-icons/fa';
-import { BiMailSend } from 'react-icons/bi';
-import {Logo} from "../../atoms/Logo/Logo";
-import {useTranslation} from "react-i18next";
-import { SiChakraui, SiGraphql, SiPostgresql, SiStrapi} from "react-icons/si";
-import { GiHangingSpider } from "react-icons/gi";
-import { GrGithub, GrReactjs } from "react-icons/gr";
-import { VscGithub } from "react-icons/vsc";
+    useColorModeValue,
+    Circle,
+    Flex,
+} from '@chakra-ui/react'
+import React, { ReactNode } from 'react'
+import { FaInstagram, FaSymfony, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { BiMailSend } from 'react-icons/bi'
+import { Logo } from '../../atoms/Logo/Logo'
+import { useTranslation } from 'react-i18next'
+import { SiChakraui, SiGraphql, SiPostgresql, SiStrapi } from 'react-icons/si'
+import { GiHangingSpider } from 'react-icons/gi'
+import { GrGithub, GrReactjs } from 'react-icons/gr'
+import { VscGithub } from 'react-icons/vsc'
 
-const SocialButton = ({ children, label, href }: {children: ReactNode; label: string; href: string;}) => {
+const SocialButton = ({
+    children,
+    label,
+    href,
+}: {
+    children: ReactNode
+    label: string
+    href: string
+}) => {
     return (
         <chakra.button
             bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
@@ -36,76 +46,157 @@ const SocialButton = ({ children, label, href }: {children: ReactNode; label: st
             transition={'background 0.3s ease'}
             _hover={{
                 bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
-            }}>
+            }}
+        >
             <VisuallyHidden>{label}</VisuallyHidden>
             {children}
         </chakra.button>
-    );
-};
+    )
+}
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
     return (
         <Text fontWeight={'500'} fontSize={'lg'} mb={2}>
             {children}
         </Text>
-    );
-};
+    )
+}
 
 export const Footer = () => {
-    const {t, i18n} = useTranslation()
+    const { t, i18n } = useTranslation()
     return (
         <Box
             bg={useColorModeValue('gray.50', 'gray.900')}
-            color={useColorModeValue('gray.700', 'gray.200')}>
+            color={useColorModeValue('gray.700', 'gray.200')}
+        >
             <Container as={Stack} maxW={'6xl'} py={10}>
-                <Flex spacing={8} justifyContent={'space-between'}>
+                <Flex justifyContent={'space-between'}>
                     <Stack spacing={6}>
                         <Box>
                             <Logo height={100} width={220} />
                         </Box>
-                        <Box w={['auto', 'auto', '300px']} my="5" fontStyle="italic">
-                            <CLink isExternal={true} href="https://github.com/communo">
-                                <GrGithub style={{display: 'inline', marginRight: 2}} />{t('layout.footer.license')}
+                        <Box
+                            w={['auto', 'auto', '300px']}
+                            my="5"
+                            fontStyle="italic"
+                        >
+                            <CLink
+                                isExternal={true}
+                                href="https://github.com/communo"
+                            >
+                                <GrGithub
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
+                                {t('layout.footer.license')}
                             </CLink>{' '}
-                            {t('layout.footer.librariesCredit.1')}{', '}
-                            <CLink isExternal={true} href="https://fr.reactjs.org">
-                                <GrReactjs style={{display: 'inline', marginRight: 2}} />
+                            {t('layout.footer.librariesCredit.1')}
+                            {', '}
+                            <CLink
+                                isExternal={true}
+                                href="https://fr.reactjs.org"
+                            >
+                                <GrReactjs
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
                                 React
-                            </CLink>{', '}
+                            </CLink>
+                            {', '}
                             <CLink isExternal={true} href="https://strapi.io">
-                                <SiStrapi style={{display: 'inline', marginRight: 2}} />
+                                <SiStrapi
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
                                 Strapi
-                            </CLink>{', '}
-                            <CLink isExternal={true} href="https://chakra-ui.com">
-                                <SiChakraui style={{display: 'inline', marginRight: 2}} />
+                            </CLink>
+                            {', '}
+                            <CLink
+                                isExternal={true}
+                                href="https://chakra-ui.com"
+                            >
+                                <SiChakraui
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
                                 CharkaUI
-                            </CLink>{', '}
+                            </CLink>
+                            {', '}
                             <CLink isExternal={true} href="https://symfony.com">
-                                <FaSymfony style={{display: 'inline', marginRight: 2}} />
+                                <FaSymfony
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
                                 Symfony
-                            </CLink>{', '}
-                            <CLink isExternal={true} href="https://api-platform.com">
-                                <GiHangingSpider style={{display: 'inline', marginRight: 2}} />
+                            </CLink>
+                            {', '}
+                            <CLink
+                                isExternal={true}
+                                href="https://api-platform.com"
+                            >
+                                <GiHangingSpider
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
                                 Api-Plaform
-                            </CLink>{', '}
+                            </CLink>
+                            {', '}
                             <CLink isExternal={true} href="https://graphql.org">
-                                <SiGraphql style={{display: 'inline', marginRight: 2}} />
+                                <SiGraphql
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
                                 GraphQL
-                            </CLink>{', '}
-                            <CLink isExternal={true} href="https://www.postgresql.org">
-                                <SiPostgresql style={{display: 'inline', marginRight: 2}} />
+                            </CLink>
+                            {', '}
+                            <CLink
+                                isExternal={true}
+                                href="https://www.postgresql.org"
+                            >
+                                <SiPostgresql
+                                    style={{
+                                        display: 'inline',
+                                        marginRight: 2,
+                                    }}
+                                />
                                 Postgres
                             </CLink>
                             {t('layout.footer.librariesCredit.2')}
                         </Box>
                         <Stack direction={'row'} spacing={6}>
-
-                            <CLink href={'/?lng=' + (i18n.language === 'fr' ? 'en' : 'fr')} title={t('switch.language')}>
-                                <Circle size='32px' bg='gray.200' color='blackAlpha-100'>
+                            <CLink
+                                href={
+                                    '/?lng=' +
+                                    (i18n.language === 'fr' ? 'en' : 'fr')
+                                }
+                                title={t('switch.language')}
+                            >
+                                <Circle
+                                    size="32px"
+                                    bg="gray.200"
+                                    color="blackAlpha-100"
+                                >
                                     {(i18n.language === 'fr' && 'en') || 'fr'}
                                 </Circle>
                             </CLink>
-                            <SocialButton label={'Github'} href="https://github.com/communo">
+                            <SocialButton
+                                label={'Github'}
+                                href="https://github.com/communo"
+                            >
                                 <VscGithub />
                             </SocialButton>
                             <SocialButton label={'Twitter'} href={'#'}>
@@ -120,11 +211,18 @@ export const Footer = () => {
                         </Stack>
                     </Stack>
                     <Stack align={'flex-start'}>
-                        <ListHeader>{t('layout.footer.newsletter.title')}</ListHeader>
+                        <ListHeader>
+                            {t('layout.footer.newsletter.title')}
+                        </ListHeader>
                         <Stack direction={'row'}>
                             <Input
-                                placeholder={t('layout.footer.newsletter.placeholder')}
-                                bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+                                placeholder={t(
+                                    'layout.footer.newsletter.placeholder'
+                                )}
+                                bg={useColorModeValue(
+                                    'blackAlpha.100',
+                                    'whiteAlpha.100'
+                                )}
                                 border={0}
                                 _focus={{
                                     bg: 'whiteAlpha.300',
@@ -137,7 +235,9 @@ export const Footer = () => {
                                     bg: 'green.600',
                                 }}
                                 title={t('layout.footer.newsletter.subscribe')}
-                                aria-label={t('layout.footer.newsletter.subscribe')}
+                                aria-label={t(
+                                    'layout.footer.newsletter.subscribe'
+                                )}
                                 icon={<BiMailSend />}
                             />
                         </Stack>
@@ -145,7 +245,5 @@ export const Footer = () => {
                 </Flex>
             </Container>
         </Box>
-    );
+    )
 }
-
-export default Footer

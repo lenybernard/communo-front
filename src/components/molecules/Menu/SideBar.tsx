@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react'
 import {
     Box,
     CloseButton,
@@ -7,21 +7,23 @@ import {
     Drawer,
     DrawerContent,
     BoxProps,
-} from '@chakra-ui/react';
-import { LinkItemProps } from "../../layout/LayoutProps";
-import {Logo} from "../../atoms/Logo/Logo";
-import NavItem from "../../atoms/Menu/NavItem";
+} from '@chakra-ui/react'
+import { LinkItemProps } from '../../layout/LayoutProps'
+import { Logo } from '../../atoms/Logo/Logo'
+import { NavItem } from '../../atoms/Menu/NavItem'
 
 interface SideBarProps extends BoxProps {
-    isOpen?: boolean|null;
-    onClose: () => void;
+    isOpen?: boolean | null
+    onClose: () => void
     linkItems: LinkItemProps[]
 }
-export const SideBar = ({ isOpen, onClose, linkItems }: SideBarProps) =>
+export const SideBar = ({ isOpen, onClose, linkItems }: SideBarProps) => (
     <>
-        <SidebarContent onClose={onClose}
-                        linkItems={linkItems}
-                        display={{ base: 'none' }} />
+        <SidebarContent
+            onClose={onClose}
+            linkItems={linkItems}
+            display={{ base: 'none' }}
+        />
         <Drawer
             autoFocus={false}
             isOpen={isOpen ?? false}
@@ -29,13 +31,14 @@ export const SideBar = ({ isOpen, onClose, linkItems }: SideBarProps) =>
             onClose={onClose}
             returnFocusOnClose={false}
             onOverlayClick={onClose}
-            size="full">
+            size="full"
+        >
             <DrawerContent>
                 <SidebarContent onClose={onClose} linkItems={linkItems} />
             </DrawerContent>
         </Drawer>
     </>
-
+)
 
 const SidebarContent = ({ onClose, linkItems, ...rest }: SideBarProps) => {
     return (
@@ -46,20 +49,30 @@ const SidebarContent = ({ onClose, linkItems, ...rest }: SideBarProps) => {
             w={{ base: 'full', md: 60 }}
             pos="fixed"
             h="full"
-            {...rest}>
-            <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                <Logo height={"80px"} />
-                <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+            {...rest}
+        >
+            <Flex
+                h="20"
+                alignItems="center"
+                mx="8"
+                justifyContent="space-between"
+            >
+                <Logo height={'80px'} />
+                <CloseButton
+                    display={{ base: 'flex', md: 'none' }}
+                    onClick={onClose}
+                />
             </Flex>
             {linkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon} to={link.to} onClick={onClose}>
+                <NavItem
+                    key={link.name}
+                    icon={link.icon}
+                    to={link.to}
+                    onClick={onClose}
+                >
                     {link.name}
                 </NavItem>
             ))}
-
-
         </Box>
-    );
-};
-
-
+    )
+}

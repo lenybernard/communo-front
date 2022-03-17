@@ -1,17 +1,14 @@
-import React from "react"
-import {useAuth} from "./AuthStatus";
-import {useLocation} from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import React from 'react'
+import { useAuth } from './AuthStatus'
+import { useLocation, Navigate } from 'react-router-dom'
 
 export const RequireAuth = ({ children }: { children: JSX.Element }) => {
-    let auth = useAuth();
-    let location = useLocation();
+    const auth = useAuth()
+    const location = useLocation()
 
     if (!auth.user) {
-        return <Navigate to="/login" state={{ from: location }} replace />;
+        return <Navigate to="/login" state={{ from: location }} replace />
     }
 
-    return children;
+    return children
 }
-
-export default RequireAuth

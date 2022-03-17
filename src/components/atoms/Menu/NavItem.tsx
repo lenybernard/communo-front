@@ -1,11 +1,22 @@
-import {Link} from "react-router-dom";
-import {Flex, Icon, Link as CLink} from "@chakra-ui/react";
-import React from "react";
-import {NavItemProps} from "./NavItemProps";
+import { Link } from 'react-router-dom'
+import { Flex, Icon, Link as CLink } from '@chakra-ui/react'
+import React from 'react'
+import { NavItemProps } from './NavItemProps'
 
-export const NavItem = ({ icon, to, display, children, ...rest }: NavItemProps) => {
+export const NavItem = ({
+    icon,
+    to,
+    display,
+    children,
+    ...rest
+}: NavItemProps) => {
     return (
-        <CLink to={to} style={{ textDecoration: 'none' }} as={Link} display={display}>
+        <CLink
+            to={to}
+            style={{ textDecoration: 'none' }}
+            as={Link}
+            display={display}
+        >
             <Flex
                 align="center"
                 p="4"
@@ -18,7 +29,8 @@ export const NavItem = ({ icon, to, display, children, ...rest }: NavItemProps) 
                     borderBottomColor: 'blue.500',
                     color: 'blue.500',
                 }}
-                {...rest}>
+                {...rest}
+            >
                 {icon && (
                     <Icon
                         display={{ base: 'none', lg: 'flex' }}
@@ -33,7 +45,5 @@ export const NavItem = ({ icon, to, display, children, ...rest }: NavItemProps) 
                 {children}
             </Flex>
         </CLink>
-    );
-};
-
-export default NavItem
+    )
+}

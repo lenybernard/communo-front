@@ -1,0 +1,10 @@
+# This file is a symbolic link of .eslintignore
+.vscode
+.idea
+.DS_Store
+.next
+assets
+node_modules
+public
+npm-debug.log
+yarn-error.log

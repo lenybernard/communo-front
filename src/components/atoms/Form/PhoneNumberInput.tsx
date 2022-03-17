@@ -8,17 +8,17 @@ import {
     Select,
 } from '@chakra-ui/react'
 import React from 'react'
-import { FieldError, UseFormRegister } from 'react-hook-form'
+import { FieldError, FieldValues, UseFormRegister } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { RequiredAsterisk } from './RequiredAsterisk'
 import { getCountries, getCountryCallingCode } from 'react-phone-number-input'
-import i18nIsoCountries, { registerLocale } from 'i18n-iso-countries'
+import { isValid, getName, registerLocale } from 'i18n-iso-countries'
 import en from 'i18n-iso-countries/langs/en.json'
 import fr from 'i18n-iso-countries/langs/fr.json'
 
 interface PhoneNumberProps {
     name: string
-    register: UseFormRegister<any>
+    register: UseFormRegister<FieldValues>
     errors:
         | {
               countryCode?: FieldError | undefined
@@ -57,15 +57,12 @@ export const PhoneNumberInput = ({
                 >
                     {countries.map(
                         (code) =>
-                            i18nIsoCountries.isValid(code) && (
+                            isValid(code) && (
                                 <option
                                     key={code}
                                     value={getCountryCallingCode(code)}
                                 >
-                                    {i18nIsoCountries.getName(
-                                        code,
-                                        i18n.language
-                                    )}
+                                    {getName(code, i18n.language)}
                                 </option>
                             )
                     )}

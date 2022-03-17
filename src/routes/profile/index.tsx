@@ -1,10 +1,8 @@
-import React from "react"
-import {useAuth} from "../../auth/AuthStatus";
+import React from 'react'
+import { useAuth } from '../../auth/AuthStatus'
 
-const Profile = () => {
-    let auth = useAuth();
+export const Profile = () => {
+    const auth = useAuth()
 
-    return <div>Profile de {auth.user.firstname}</div>
+    return <div>Profile de {auth.user?.firstname}</div>
 }
-
-export default Profile

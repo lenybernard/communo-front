@@ -1,11 +1,11 @@
-import React, {useEffect} from "react"
-import {toast} from "react-toastify"
-import {useTranslation} from "react-i18next"
-import {useNavigate} from "react-router-dom"
-import {useAuth} from "./AuthStatus";
+import React, { useEffect } from 'react'
+import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from './AuthStatus'
 
-const Logout = () => {
-    const {t} = useTranslation()
+export const Logout = () => {
+    const { t } = useTranslation()
     const navigate = useNavigate()
     const auth = useAuth()
     useEffect(() => {
@@ -17,5 +17,3 @@ const Logout = () => {
 
     return <div />
 }
-
-export default Logout

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import {
     IconButton,
     Avatar,
@@ -13,29 +13,27 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
-    Button, Link as CLink, Container,
-} from '@chakra-ui/react';
-import {Link} from "react-router-dom";
-import {
-    FiMenu,
-    FiBell,
-    FiChevronDown, FiPlus,
-} from 'react-icons/fi';
-import {ColorModeSwitcher} from "../../../ColorModeSwitcher";
-import {Logo} from "../../atoms/Logo/Logo";
-import {LinkItemProps} from "../../layout/LayoutProps";
-import NavItem from "../../atoms/Menu/NavItem";
-import {GoDiffAdded} from "react-icons/go";
-import {useTranslation} from "react-i18next";
-import {useAuth} from "../../../auth/AuthStatus";
+    Button,
+    Link as CLink,
+    Container,
+} from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
+import { FiMenu, FiBell, FiChevronDown, FiPlus } from 'react-icons/fi'
+import { ColorModeSwitcher } from '../../../ColorModeSwitcher'
+import { Logo } from '../../atoms/Logo/Logo'
+import { LinkItemProps } from '../../layout/LayoutProps'
+import { NavItem } from '../../atoms/Menu/NavItem'
+import { GoDiffAdded } from 'react-icons/go'
+import { useTranslation } from 'react-i18next'
+import { useAuth } from '../../../auth/AuthStatus'
 
 interface MobileProps extends FlexProps {
-    onOpen: () => void;
+    onOpen: () => void
     links: LinkItemProps[]
 }
 
 export const HeadBar = ({ onOpen, links, ...rest }: MobileProps) => {
-    const {t} = useTranslation()
+    const { t } = useTranslation()
     const auth = useAuth()
 
     return (
@@ -47,11 +45,13 @@ export const HeadBar = ({ onOpen, links, ...rest }: MobileProps) => {
             borderBottomWidth="1px"
             borderBottomColor={useColorModeValue('gray.200', 'gray.700')}
             justifyContent={{ base: 'space-between' }}
-            {...rest}>
-
-            <Container maxW={"container.xl"}>
-
-                <HStack spacing={{ base: '0', md: '6' }} justifyContent={'space-between'}>
+            {...rest}
+        >
+            <Container maxW={'container.xl'}>
+                <HStack
+                    spacing={{ base: '0', md: '6' }}
+                    justifyContent={'space-between'}
+                >
                     <IconButton
                         mr={5}
                         display={{ base: 'flex', md: 'none' }}
@@ -60,12 +60,21 @@ export const HeadBar = ({ onOpen, links, ...rest }: MobileProps) => {
                         aria-label="open menu"
                         icon={<FiMenu />}
                     />
-                    <CLink to={'/'} style={{ textDecoration: 'none' }} as={Link}>
-                        <Logo height={"80px"} />
+                    <CLink
+                        to={'/'}
+                        style={{ textDecoration: 'none' }}
+                        as={Link}
+                    >
+                        <Logo height={'80px'} />
                     </CLink>
                     <Flex grow={1}>
                         {links.map((link) => (
-                            <NavItem key={link.name} icon={link.icon} to={link.to} display={link.display}>
+                            <NavItem
+                                key={link.name}
+                                icon={link.icon}
+                                to={link.to}
+                                display={link.display}
+                            >
                                 {link.name}
                             </NavItem>
                         ))}
@@ -76,70 +85,94 @@ export const HeadBar = ({ onOpen, links, ...rest }: MobileProps) => {
                             colorScheme={'red'}
                             size={'sm'}
                             mr={4}
-                            display={{base: 'none', sm: 'flex'}}
-                            leftIcon={<FiPlus/>}
+                            display={{ base: 'none', sm: 'flex' }}
+                            leftIcon={<FiPlus />}
                         >
                             <Text>{t('layout.head.cta.label')}</Text>
                         </Button>
-                        <Button display={{base: 'flex', sm: 'none'}}
-                                variant={'ghost'}
-                                colorScheme={'red'}>
+                        <Button
+                            display={{ base: 'flex', sm: 'none' }}
+                            variant={'ghost'}
+                            colorScheme={'red'}
+                        >
                             <Box>
                                 <GoDiffAdded size={20} />
                             </Box>
                         </Button>
-                        <ColorModeSwitcher justifySelf="flex-end" display={{base: 'none', sm: 'flex'}}/>
+                        <ColorModeSwitcher
+                            justifySelf="flex-end"
+                            display={{ base: 'none', sm: 'flex' }}
+                        />
                         <IconButton
                             size="lg"
                             variant="ghost"
                             aria-label="open menu"
-                            display={{base: 'none', sm: 'flex'}}
+                            display={{ base: 'none', sm: 'flex' }}
                             icon={<FiBell />}
                         />
-                        {(auth.user &&
+                        {(auth.user && (
                             <Flex alignItems={'center'}>
                                 <Menu>
                                     <MenuButton
                                         py={2}
                                         transition="all 0.3s"
-                                        _focus={{boxShadow: 'none'}}>
+                                        _focus={{ boxShadow: 'none' }}
+                                    >
                                         <HStack>
                                             <Avatar
                                                 size={'sm'}
-                                                src={'http://127.0.0.1:8000' + auth.user.avatarUrl}
+                                                src={
+                                                    'http://127.0.0.1:8000' +
+                                                    auth.user.avatarUrl
+                                                }
                                             />
                                             <VStack
-                                                display={{base: 'none', md: 'flex'}}
+                                                display={{
+                                                    base: 'none',
+                                                    md: 'flex',
+                                                }}
                                                 alignItems="flex-start"
                                                 spacing="1px"
-                                                ml="2">
+                                                ml="2"
+                                            >
+                                                <Text fontSize="sm">
+                                                    {auth.user.firstname +
+                                                        ' ' +
+                                                        auth.user.lastname}
+                                                </Text>
                                                 <Text
-                                                    fontSize="sm">{auth.user.firstname + ' ' + auth.user.lastname}</Text>
-                                                <Text fontSize="xs" color="gray.600">
+                                                    fontSize="xs"
+                                                    color="gray.600"
+                                                >
                                                     Admin
                                                 </Text>
                                             </VStack>
-                                            <Box display={{base: 'none', md: 'flex'}}>
-                                                <FiChevronDown/>
+                                            <Box
+                                                display={{
+                                                    base: 'none',
+                                                    md: 'flex',
+                                                }}
+                                            >
+                                                <FiChevronDown />
                                             </Box>
                                         </HStack>
                                     </MenuButton>
                                     <MenuList
-                                        // bg={useColorModeValue('white', 'gray.900')}
-                                        // borderColor={useColorModeValue('gray.200', 'gray.700')}
+                                    // bg={useColorModeValue('white', 'gray.900')}
+                                    // borderColor={useColorModeValue('gray.200', 'gray.700')}
                                     >
                                         <MenuItem>
-                                            <Link to={'/logout'}>{t('menu.logout')}</Link>
+                                            <Link to={'/logout'}>
+                                                {t('menu.logout')}
+                                            </Link>
                                         </MenuItem>
                                     </MenuList>
                                 </Menu>
                             </Flex>
-                        ) || (
-                            <Link to={'/login'}>{ t('menu.login') }</Link>
-                        )}
+                        )) || <Link to={'/login'}>{t('menu.login')}</Link>}
                     </Flex>
                 </HStack>
             </Container>
         </Flex>
-    );
-};
+    )
+}
