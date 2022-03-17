@@ -201,6 +201,7 @@ export declare interface User {
     circles: CircleConnection;
     ratings: RatingConnection;
     averageRatingScore: number|null;
+    gender: 'male'|'female'|null
 }
 
 //Connection for User." +

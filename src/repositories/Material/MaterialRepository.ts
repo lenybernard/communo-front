@@ -49,6 +49,7 @@ export const findMaterialById = gql`
         avatarSize
         city
         roles
+        gender
         materials {
           paginationInfo {
             totalCount

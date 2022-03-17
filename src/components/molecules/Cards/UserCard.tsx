@@ -25,12 +25,14 @@ import {HiOutlineChatAlt} from "react-icons/hi";
 import Card from "./Card";
 import Rating from "react-rating";
 import {CircleLogo} from "../User/Circle/CircleLogo";
+import {useAuth} from "../../../auth/AuthStatus";
 
 export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePeriod'|'validated'}) => {
     let fullname = user.firstname + ' ' + user.lastname
     const { t } = useTranslation()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const borderRadius = step === 'choosePeriod' ? '0 10px 10px 0' : undefined
+    let auth = useAuth();
     return (
             <Card borderRadius={borderRadius}>
                 <Avatar
@@ -95,6 +97,7 @@ export const UserCard = ({user, step}: {user: User, step: 'initial'|'choosePerio
                         rounded={'full'}
                         onClick={onOpen}
                         leftIcon={<HiOutlineChatAlt />}
+                        disabled={user._id === auth.user?.id}
                         _focus={{
                             bg: 'gray.200',
                         }}>

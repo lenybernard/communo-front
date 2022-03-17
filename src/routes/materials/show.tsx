@@ -14,7 +14,7 @@ import {
     Flex,
     Spinner,
     GridItem,
-    Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, useDisclosure,
+    Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, useDisclosure, Spacer,
 } from "@chakra-ui/react"
 import {
     useQuery,
@@ -24,17 +24,14 @@ import {useTranslation} from "react-i18next"
 import {Material, MaterialBooking} from "../../types"
 import {findMaterialById} from "../../repositories/Material/MaterialRepository"
 import {Helmet} from "react-helmet"
-import Lottie from "react-lottie"
-import animationData from './../../lotties/fist-checks.json'
-import ReactMarkdown from "react-markdown"
 import UserCard from "../../components/molecules/Cards/UserCard"
 import {useEffect, useState} from "react"
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import AvailabilityPlanning from "../../components/molecules/Form/Material/Booking/AvailabilityPlanning"
-import remarkGfm from "remark-gfm";
 import BookingContext from "../../contexts/BookingContext";
-import BookingSummary from "../../components/molecules/Form/Material/Booking/BookingSummary";
+import {useAuth} from "../../auth/AuthStatus";
+import ExchangeMailCloud from "../../components/atoms/Illustrations/ExchangeMailCloud";
 
 
 export const MaterialShow = () => {
@@ -42,6 +39,7 @@ export const MaterialShow = () => {
     const [ step, setStep ] = useState<'initial'|'choosePeriod'|'validated'>('initial')
     const [booking, setBooking] = useState<MaterialBooking|null>()
     let params = useParams();
+    let auth = useAuth();
     const {loading, error, data} = useQuery(findMaterialById, {
         variables: {
             id: '/api/materials/' + params.id
@@ -78,7 +76,7 @@ export const MaterialShow = () => {
                                 rounded={'md'}
                                 alt={'product image'}
                                 src={
-                                    'http://127.0.0.1:8000/images/materials/' + material.images.edges[0].node?.imageName
+                                    material.images.edges.length > 0 ? 'http://127.0.0.1:8000/images/materials/' + material.images.edges[0].node.imageName : 'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80'
                                 }
                                 bg={'white'}
                                 fit={'cover'}
@@ -108,6 +106,7 @@ export const MaterialShow = () => {
                                     _focus={{
                                         bg: 'blue.500',
                                     }}
+                                    disabled={material.owner._id === auth.user?.id}
                                     _hover={{
                                         bg: 'blue.500',
                                         transform: 'translateY(2px)',
@@ -127,21 +126,11 @@ export const MaterialShow = () => {
                         <ModalHeader>{t('material.show.booking.validate.success.title')}</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            <Lottie
-                                options={{
-                                    loop: false,
-                                    autoplay: true,
-                                    animationData: animationData,
-                                    rendererSettings: {
-                                        preserveAspectRatio: "xMidYMid slice"
-                                    }
-                                }}
-                                isClickToPauseDisabled={true}
-                                height={400}
-                                width={400}
-                                speed={2.5}
-                            />
-                            <div dangerouslySetInnerHTML={{__html: t('material.show.booking.validate.success.body', {'user': booking?.user})}} />
+                            <div dangerouslySetInnerHTML={{__html: t('material.show.booking.validate.success.body', {'user': material.owner, 'context': material.owner.gender})}} />
+                            <ExchangeMailCloud
+                                height={{ sm: '16rem', lg: '24rem' }}
+                                mt={{ base: 12, sm: 16 }}/>
+                            <Spacer h={35}/>
                         </ModalBody>
                     </ModalContent>
                 </Modal>

@@ -20,7 +20,7 @@ import Layout from "./components/layout/Layout"
 import Profile from "./routes/profile"
 import RequireAuth from "./auth/RequireAuth"
 import AuthProvider from "./auth/AuthProvider"
-import Login from "./routes/login"
+import Signin from "./routes/signin"
 import Logout from "./auth/Logout"
 import {CookiesProvider} from "react-cookie"
 import ApolloRefreshTokenAuthMiddleware from "./auth/ApolloRefreshTokenAuthMiddleware";
@@ -46,11 +46,12 @@ ReactDOM.render(
                         <Routes>
                             <Route element={<Layout />}>
                                 <Route path="/" element={<Home />} />
-                                <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<Signin mode={'register'} />} />
+                                <Route path="/login" element={<Signin mode={'login'} />} />
                                 <Route path="/logout" element={<Logout />} />
+                                <Route path="materials" element={<RequireAuth><MaterialIndex /></RequireAuth>}/>
+                                <Route path="materials/:id" element={<RequireAuth><MaterialShow /></RequireAuth>} />
                                 <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>}/>
-                                <Route path="materials" element={<MaterialIndex />}/>
-                                <Route path="materials/:id" element={<MaterialShow />} />
                                 <Route
                                     path="*"
                                     element={

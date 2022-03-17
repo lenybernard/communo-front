@@ -22,6 +22,16 @@ const resources = {
                     "how": "How it works ?",
                 }
             },
+            "form": {
+                "gender": {
+                    "female": "Her Ladyship",
+                    "male": "Gent",
+                },
+                "errors": {
+                    "tooShort": "Trop petit ({{count}} caractères min.)",
+                    "emailInvalid": "Email invalide",
+                }
+            },
             "layout": {
 
                 "footer": {
@@ -55,6 +65,7 @@ const resources = {
                         "label": "Password",
                     },
                     "button": "Let's connect",
+                    "register": "Create my account",
                 },
                 "forgotPassword": "Forgot password ?",
                 "toast": {
@@ -74,15 +85,15 @@ const resources = {
                 },
                 "authentication.needed": {
                     "title": "Authentication needed 🛂",
-                    "subtitle": "Of course it's you but there is a procedure",
                 }
             },
             "logout": {
-                "title": "Logout",
                 "toast": "Good bye !"
             },
             "menu": {
                 "home": "Home",
+                "login": "Signin",
+                "logout": "Logout",
                 "material": "Equipment",
                 "service": "Service",
             },
@@ -132,8 +143,14 @@ const resources = {
                         "validate": {
                             "success": {
                                 "title": "OK ! The request has been made",
-                                "body": "An email has been sent to {{user.firstname}}, he should contact you shortly.<br/>" +
+                                "body_female": "An email has been sent to {{user.firstname}}, she should contact you shortly.<br/>" +
+                                    "If you don't get an answer from her, don't hesitate to give a call or a text message " +
+                                    "to remind her about your request.",
+                                "body_male": "An email has been sent to {{user.firstname}}, he should contact you shortly.<br/>" +
                                     "If you don't get an answer from him, don't hesitate to give a call or a text message " +
+                                    "to remind him about your request.",
+                                "body": "An email has been sent to {{user.firstname}}, he/she should contact you shortly.<br/>" +
+                                    "If you don't get an answer from him/her, don't hesitate to give a call or a text message " +
                                     "to remind him/her about your request.",
                             },
                             "error" : "Oups, there seems to be a problem with the reservation. Try again"
@@ -175,6 +192,66 @@ const resources = {
                     }
                 },
             },
+            "register": {
+                "title": "Register",
+                "subtitle": "to use the service !",
+                "form": {
+                    "avatar": {
+                        "browse": "Add my picture",
+                        "change": "Change my picture",
+                    },
+                    "email": {
+                        "label": "Email",
+                        "placeholder": "john@community.com",
+                        "error": "Email is not valid, please check it. ",
+                    },
+                    "password": {
+                        "label": "Password",
+                    },
+                    "button": "Let's start",
+                    "firstname": {
+                        "label": "Firstname",
+                        "placeholder": "Jane",
+                    },
+                    "lastname": {
+                        "label": "Lastname",
+                        "placeholder": "Smith",
+                    },
+                    "city": {
+                        "label": "Town",
+                        "placeholder": "",
+                    },
+                    "phoneNumber": {
+                        "label": "Phone",
+                        "placeholder": "+44123456789",
+                    },
+                    "country": {
+                        "label": "Country",
+                        "placeholder": "",
+                    },
+                    "gender": {
+                        "label": "How should we call u  ?",
+                        "why": "Why this question ?",
+                        "help": "It's not mandatory but it's just to send better automatic messages according to your gender" +
+                            " rather than using inclusive writing. ",
+                    },
+                    "login": "I already have an account"
+                },
+                "you": 'YOU',
+            },
+            "signin": {
+                "hero": {
+                    "title": {
+                        "part1": "Friends, neighbors , communities...",
+                        "part2": "make",
+                        "part3": "the difference",
+                    },
+                },
+                "title": "Join the movement",
+                "subtitle": "Whether you are full of treasures in you or at home or on the contrary that you lack them, " +
+                    "this platform is made for you. Free, open source and independent. ",
+                "emphaseWord": "Basic."
+            },
             "switch.language": "Switch to french",
             "user": {
                 "card": {
@@ -204,6 +281,16 @@ const resources = {
                     "getStarted": "C'est parti",
                     "buttonIncentive": "Petit clic = grand déclic",
                     "how": "Comment ça marche ?",
+                }
+            },
+            "form": {
+                "gender": {
+                    "female": "Mâdame",
+                    "male": "Mônsieur",
+                },
+                "errors": {
+                    "tooShort": "Trop petit ({{count}} caractères min.)",
+                    "emailInvalid": "Email invalide",
                 }
             },
             "layout": {
@@ -238,6 +325,7 @@ const resources = {
                         "label": "Mot de passe",
                     },
                     "button": "Me connecter",
+                    "register": "Créer mon compte",
                 },
                 "forgotPassword": "Mot de passe oublié ?",
                 "toast": {
@@ -257,17 +345,17 @@ const resources = {
                 },
                 "authentication.needed": {
                     "title": "Identification requise 🛂",
-                    "subtitle": "Bien sûr c'est toi, on le sait, c'est une simple procédure",
                 }
             },
             "logout": {
-                "title": "Déconnexion",
                 "toast": "😿 À bientôt !"
             },
             "menu": {
                 "home": "Accueil",
                 "material": "Matériel",
                 "service": "Service",
+                "login": "Connexion",
+                "logout": "Déconnexion",
             },
             "meta": {
                 "title": {
@@ -276,6 +364,19 @@ const resources = {
             },
             "modal": {
                 "close": "Fermer"
+            },
+            "signin": {
+                "hero": {
+                    "title": {
+                        "part1": "Ami·e·s, voisin·e·s, collectifs...",
+                        "part2": "rejoins",
+                        "part3": "tes communautés",
+                    },
+                },
+                "title": "Rejoins le mouvement",
+                "subtitle": "Que tu regorges de trésors en toi ou chez toi ou au contraire que t'en manques, cette plateforme\n" +
+                    "est faite pour toi. Gratuite, libre et indépendante.",
+                "emphaseWord": "Basique."
             },
             "switch.language": "Passer en anglais",
             "material": {
@@ -316,9 +417,15 @@ const resources = {
                         "validate": {
                             "success": {
                                 "title": "Parfait !",
-                                "body": "Un mail a été envoyé à {{user.firstname}}, il devrait te recontacter prochainement.<br/>" +
-                                    "Si tu n'obtiens pas de réponse de sa part, n'hésite pas à l'appeler ou à lui envoyer un petit SMS" +
-                                    "pour le lui notifier ou rappeler ({{user.phoneNumberObject}}).",
+                                "body_female": "Un mail a été envoyé à {{user.firstname}}, elle devrait te recontacter prochainement.<br/>" +
+                                    "Si tu n'obtiens pas de réponse de sa part, n'hésite pas à lui envoyer un petit message " +
+                                    "pour le lui notifier ou la rappeler au ({{user.phoneNumberObject}}).",
+                                "body_male": "Un mail a été envoyé à {{user.firstname}}, il devrait te recontacter prochainement.<br/>" +
+                                    "Si tu n'obtiens pas de réponse de sa part, n'hésite pas à lui envoyer un petit message " +
+                                    "pour le lui notifier ou le rappeler ({{user.phoneNumberObject}}).",
+                                "body": "Un mail a été envoyé à {{user.firstname}}, iel devrait te recontacter prochainement.<br/>" +
+                                    "Si tu n'obtiens pas de réponse de sa part, n'hésite pas à lui envoyer un petit message " +
+                                    "pour le lui notifier ou le/la rappeler ({{user.phoneNumberObject}}).",
                             },
                             "error" : "Oups, il semble y avoir un problème au niveau de la réservation. N'hésite pas à réessayer"
                         }
@@ -357,6 +464,54 @@ const resources = {
 Mais n'hésite pas à contacter simplement **{{user.firstname}}** par email **{{user.email}}** ou en lui passant un coup de fil ou SMS au {{user.phoneNumber}}.`,
                     }
                 },
+            },
+            "register": {
+                "form": {
+                    "email": {
+                        "label": "Email",
+                        "placeholder": "john@community.com",
+                        "error": "L'email ne semble pas valide, merci de vérifier. ",
+                    },
+                    "firstname": {
+                        "label": "Prénom",
+                        "placeholder": "Jeanne",
+                    },
+                    "lastname": {
+                        "label": "Nom de famille",
+                        "placeholder": "Martin",
+                    },
+                    "password": {
+                        "label": "Mot de passe",
+                        "placeholder": "",
+                    },
+                    "city": {
+                        "label": "Commune",
+                        "placeholder": "",
+                    },
+                    "phoneNumber": {
+                        "label": "Tel.",
+                        "placeholder": "0612345789",
+                    },
+                    "country": {
+                        "label": "Pays",
+                        "placeholder": "",
+                    },
+                    "avatar": {
+                        "browse": "Ajouter mon image",
+                        "change": "Change mon image",
+                    },
+                    "gender": {
+                        "label": "On t'appelle comment ?",
+                        "why": "Pourquoi cette question ?",
+                        "help": "Ce n'est pas obligatoire mais c'est juste pour que les messages automatiques qui sont envoyés" +
+                            "soient personnalisés en fonction du texte plutôt que d'utiliser l'écriture inclusive.",
+                    },
+                    "button": "C'est parti !",
+                    "login": "J'ai déjà un compte"
+                },
+                "subtitle": "gratuite et simple",
+                "title": "Inscription",
+                "you": 'TOI',
             },
             "user": {
                 "card": {

@@ -129,13 +129,13 @@ export const HeadBar = ({ onOpen, links, ...rest }: MobileProps) => {
                                         // borderColor={useColorModeValue('gray.200', 'gray.700')}
                                     >
                                         <MenuItem>
-                                            <Link to={'/logout'}>{t('logout.title')}</Link>
+                                            <Link to={'/logout'}>{t('menu.logout')}</Link>
                                         </MenuItem>
                                     </MenuList>
                                 </Menu>
                             </Flex>
                         ) || (
-                            <Link to={'/login'}>Login</Link>
+                            <Link to={'/login'}>{ t('menu.login') }</Link>
                         )}
                     </Flex>
                 </HStack>
